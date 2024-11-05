@@ -1,6 +1,27 @@
 .header {
     border-bottom: 2px solid var(--color-blue);
     border-radius: 0px 0px 5px 5px;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: var(--color-white);
+    transition: 1s all;
+    position: sticky;
+}
+
+.visible {
+    top: 0;
+    background-color: var(--color-dark-blue);
+}
+
+.hidden {
+    top: -122px;
+    transition: .2s all;
+}
+
+.atTop {
+    background-color: var(--color-white);
+    position: static;
 }
 
 .header_inner {

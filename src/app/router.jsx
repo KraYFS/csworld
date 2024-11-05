@@ -6,6 +6,7 @@ const Router = createBrowserRouter([
     {
         path: '/',
         element: <MainPage />,
+        errorElement: <Page404 />
     },
     {
         path: '/page404',
