@@ -40,7 +40,7 @@ const MainPage = () => {
                             <div className={styles.swiper_gallery}>
                                 <Swiper
                                     modules={[Thumbs, Navigation]}
-                                    thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
+                                    thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
                                     navigation
                                     watchSlidesProgress
                                     pagination={{ clickable: true }}
