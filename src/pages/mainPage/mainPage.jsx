@@ -20,6 +20,9 @@ const MainPage = () => {
     const [peculiarities, setPeculiarities] = useState(null)
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
+    console.log(thumbsSwiper);
+    
+
     setTimeout(() => {
         setImages([{ id: 1, url: image }, { id: 2, url: image }, { id: 3, url: image }, { id: 4, url: image }, { id: 5, url: image }, { id: 6, url: image }, { id: 7, url: image }])
         setPeculiarities([{ id: 1, text: 'Чистая версия' }, { id: 2, text: 'Русский чат и ник' }, { id: 3, text: 'Для всех версий Windows (от XP до 11)' }, { id: 4, text: 'С игрой по интернету' }, { id: 5, text: 'С умными ботами' }])
