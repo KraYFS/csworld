@@ -17,6 +17,8 @@
 .hidden {
     top: -122px;
     transition: .2s all;
+    background-color: var(--color-dark-blue);
+
 }
 
 .atTop {
@@ -40,7 +42,7 @@
 }
 
 .nav_link {
-    padding: 11px 23px;
+    padding: 11px 20px;
     width: 100%;
     max-width: 167px;
     text-align: center;

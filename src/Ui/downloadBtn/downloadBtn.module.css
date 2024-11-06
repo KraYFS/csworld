@@ -1,0 +1,8 @@
+.btn {
+    font-size: 36px;
+    padding: 20px;
+    width: 100%;
+    max-width: 284px;
+    border-radius: 5px;
+    color: var(--color-white);
+}
