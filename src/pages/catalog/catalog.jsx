@@ -8,10 +8,6 @@ import img from '../../assets/icons/weaponIconAwp.png'
 import WeaponCategoryCard from '../../Ui/weaponCategoryCard/weaponCategoryCard';
 
 const Catalog = () => {
-    // const { name } = useParams()
-
-    // console.log(name);
-
     return (
         <div>
             <Header />
@@ -43,14 +39,14 @@ const Catalog = () => {
                         <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
                     </div>
                     <div className={styles.WeaponCategoryCards}>
-                        <WeaponCategoryCard title='Модель АК-47 Кровавый спорт'/>
-                        <WeaponCategoryCard title='Модель АК-47 Кровавый спорт'/>
-                        <WeaponCategoryCard title='Модель АК-47 Кровавый спорт'/>
-                        <WeaponCategoryCard title='Модель АК-47 Кровавый спорт'/>
-                        <WeaponCategoryCard title='Модель АК-47 Кровавый спорт'/>
-                        <WeaponCategoryCard title='Модель АК-47 Кровавый спорт'/>
-                        <WeaponCategoryCard title='Модель АК-47 Кровавый спорт'/>
-                        <WeaponCategoryCard title='Модель АК-47 Кровавый спорт'/>
+                        <WeaponCategoryCard link='catalog card' title='Модель АК-47 Кровавый спорт'/>
+                        <WeaponCategoryCard link='catalog card' title='Модель АК-47 Кровавый спорт'/>
+                        <WeaponCategoryCard link='catalog card' title='Модель АК-47 Кровавый спорт'/>
+                        <WeaponCategoryCard link='catalog card' title='Модель АК-47 Кровавый спорт'/> 
+                        <WeaponCategoryCard link='catalog card' title='Модель АК-47 Кровавый спорт'/>
+                        <WeaponCategoryCard link='catalog card' title='Модель АК-47 Кровавый спорт'/>
+                        <WeaponCategoryCard link='catalog card' title='Модель АК-47 Кровавый спорт'/>
+                        <WeaponCategoryCard link='catalog card' title='Модель АК-47 Кровавый спорт'/>
                     </div>
                 </section>
             </div>

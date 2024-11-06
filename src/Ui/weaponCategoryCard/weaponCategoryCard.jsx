@@ -5,7 +5,7 @@ import WeaponCategoryElem from '../weaponCategoryElem/weaponCategoryElem';
 
 const WeaponCategoryCard = (props) => {
     return (
-        <Link className={styles.weaponCategoryCard}>
+        <Link to={`/${props.link}`} className={styles.weaponCategoryCard}>
             <img style={{ width: '335px' }} src={img} alt="" />
             <h2 className={styles.card_title}>{props.title}</h2>
             <div className={styles.filter}>
