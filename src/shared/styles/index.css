@@ -30,7 +30,7 @@ aside {
 html,
 body {
   font-family: "Montserrat", sans-serif;
-  background-color: var(--bg-color);
+  background-color: #e8e8e8;
   color: var(--text-color);
   font-size: 100%;
   line-height: 1;

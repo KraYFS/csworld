@@ -20,9 +20,6 @@ const MainPage = () => {
     const [peculiarities, setPeculiarities] = useState(null)
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
-    console.log(thumbsSwiper);
-    
-
     setTimeout(() => {
         setImages([{ id: 1, url: image }, { id: 2, url: image }, { id: 3, url: image }, { id: 4, url: image }, { id: 5, url: image }, { id: 6, url: image }, { id: 7, url: image }])
         setPeculiarities([{ id: 1, text: 'Чистая версия' }, { id: 2, text: 'Русский чат и ник' }, { id: 3, text: 'Для всех версий Windows (от XP до 11)' }, { id: 4, text: 'С игрой по интернету' }, { id: 5, text: 'С умными ботами' }])
@@ -51,18 +48,18 @@ const MainPage = () => {
                                     className={styles.swiper}
                                 >
                                     {images.map(item => {
-                                        return (<SwiperSlide key={item.id}><img src={item.url} alt="" /></SwiperSlide>)
+                                        return (<SwiperSlide key={item.id}><img style={{width: '518px'}} src={item.url} alt="" /></SwiperSlide>)
                                     })}
                                 </Swiper>
                                 <Swiper
                                     modules={[Thumbs, Pagination]}
                                     pagination={{ clickable: true }}
                                     onSwiper={setThumbsSwiper}
-                                    slidesPerView={5}
+                                    slidesPerView={3}
                                     style={{ width: '100%', height: "96px", marginTop: "18px" }}
                                 >
                                     {images.map(item => {
-                                        return (<SwiperSlide key={item.id}><img style={{ width: '150px', height: '96px', borderRadius: '5px' }} src={item.url} alt="" /></SwiperSlide>)
+                                        return (<SwiperSlide key={item.id}><img style={{ width: '162px', height: '95px', borderRadius: '5px' }} src={item.url} alt="" /></SwiperSlide>)
                                     })}
                                 </Swiper>
                             </div>

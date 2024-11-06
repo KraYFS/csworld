@@ -15,6 +15,9 @@
 .mainPage_inner {
     display: flex;
     gap: 20px;
+    padding: 25px;
+    background-color: #2163e80f;
+    border-radius: 5px;
 }
 
 .subtitle {
@@ -32,7 +35,7 @@
 .swiper_gallery {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 33%;
 }
 
 .peculiarities {
