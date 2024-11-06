@@ -1,0 +1,53 @@
+.spoiler {
+    overflow: hidden;
+    width: 100%;
+    margin: 20px 0px;
+    transition: .5s all;
+}
+
+.spoiler_title {
+    cursor: pointer;
+    position: relative;
+    padding: 6px 20px;
+    color: var(--color-white);
+    border-radius: 5px;
+    background-color: var(--color-blue);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1;
+}
+
+.spoiler_content {
+    transition: .7s all;
+    padding: 40px 30px;
+    color: #40455E;
+    font-size: 14px;
+    background-color: rgb(239, 238, 255, 35%);
+}
+
+.spoiler_icon {
+    transition: .2s all;
+}
+
+.content_open {
+    transform: rotate(135deg);
+}
+
+.content_close {
+    transform: rotate(0deg);
+}
+
+.hidden {
+    pointer-events: none;
+    transform: translateY(-500px);
+    opacity: 0;
+    height: 0px;
+    padding: 0px; 
+}
+
+.visible {
+    transform: translateY(0px);
+    pointer-events: all;
+    opacity: 1;
+}

@@ -1,5 +1,12 @@
+:root {
+  /* --swiper-pagination-bullet-size: 18px;
+  --swiper-pagination-bullet-width: 18px;
+  --swiper-pagination-bullet-height: 18px; */
+  --swiper-pagination-bullet-inactive-color: #f3f3f3;
+  --swiper-pagination-color: #E0DDF8;
+}
+
 .swiper {
-    max-width: 883px;
     width: 100%;
     border-radius: 5px;
     margin-left: 0px;
@@ -20,4 +27,17 @@
     margin-top: 20px;
     padding-top: 20px;
     border-top: 2px solid var(--color-blue);
+}
+
+.swiper_gallery {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.peculiarities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
 }
