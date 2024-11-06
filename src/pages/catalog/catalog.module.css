@@ -1,0 +1,17 @@
+.weapon_category {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.WeaponCategoryCards {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    justify-content: center;
+}
+
+.WeaponCategoryCards {
+    margin-top: 40px;
+}

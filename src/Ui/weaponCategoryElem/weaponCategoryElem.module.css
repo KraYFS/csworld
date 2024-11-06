@@ -1,0 +1,17 @@
+.weaponCategoryElem {
+    padding: 10px;
+    color: #fff;
+    background-color: var(--color-blue);
+    text-align: center;
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.weaponCategoryElemIcon {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 340px;
+    height: 58px;
+}

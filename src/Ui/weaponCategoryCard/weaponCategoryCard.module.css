@@ -1,0 +1,19 @@
+.weaponCategoryCard {
+    background-color: var(--color-block);
+    padding: 20px;
+    width: 100%;
+    display: block;
+    border-radius: 5px;
+}
+
+.card_title {
+    color: var(--color-blue);
+    margin: 20px 0px;
+}
+
+.filter {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    flex-wrap: wrap;
+}

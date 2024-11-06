@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainPage from "../pages/mainPage/mainPage";
 import Page404 from "../pages/page404/page404";
+import Catalog from "../pages/catalog/catalog";
 
 const Router = createBrowserRouter([
     {
@@ -9,8 +10,8 @@ const Router = createBrowserRouter([
         errorElement: <Page404 />
     },
     {
-        path: '/',
-        element: <MainPage />,
+        path: '/catalog/:name',
+        element: <Catalog />,
         errorElement: <Page404 />
     },
     {

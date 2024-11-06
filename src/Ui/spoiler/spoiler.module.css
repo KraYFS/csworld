@@ -9,9 +9,9 @@
     cursor: pointer;
     position: relative;
     padding: 6px 20px;
-    color: var(--color-white);
+    color: #000;
     border-radius: 5px;
-    background-color: var(--color-blue);
+    background-color: var(--color-spoiler);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -24,7 +24,7 @@
     color: #40455E;
     font-size: 14px;
     border-radius: 5px;
-    background-color: #2163e80f;
+    background-color: var(--color-block)
 }
 
 .spoiler_icon {

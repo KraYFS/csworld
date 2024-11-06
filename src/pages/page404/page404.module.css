@@ -1,0 +1,28 @@
+.page404 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-dark-blue);
+    width: 100%;
+    height: 100vh;
+    gap: 50px;
+}
+
+.text {
+    background-color: aqua;
+    color: var(--color-dark-blue);
+    padding: 12px 20px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.back {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    background-color: aqua;
+    color: var(--color-dark-blue);
+    padding: 12px 20px;
+    font-size: 24px;
+    font-weight: 600;
+}

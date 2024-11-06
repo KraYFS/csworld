@@ -2,7 +2,7 @@ import styles from './sectionTitle.module.css'
 
 const SectionTitle = (props) => {
     return (
-        <h1 className={styles.title}>
+        <h1 style={{marginTop: `${props.marginTop}px`}} className={styles.title}>
             {props.title}
         </h1>
     );
