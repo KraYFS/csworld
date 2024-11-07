@@ -17,3 +17,20 @@
     align-items: center;
     flex-wrap: wrap;
 }
+
+
+
+@media screen and (max-width: 1290px) {
+  .container {
+      max-width: 800px;
+  }
+}
+
+@media screen and (max-width: 860px) {
+    .weaponCategoryCard {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
