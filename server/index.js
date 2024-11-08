@@ -12,7 +12,7 @@ const DB_URL = 'mongodb+srv://csWorldDB:csWorldDB1244@cluster0.cra75.mongodb.net
 const app = express()
 
 app.use(cors({
-    origin: 'http://localhost:5173'
+    origin: ['http://localhost:5173', 'https://superb-gumption-9063ca.netlify.app']
 }));
 
 app.use(express.json())
