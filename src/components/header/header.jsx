@@ -34,7 +34,7 @@ const Header = () => {
                 <nav className={styles.nav_links}>
                     <Link ref={ref} className={styles.nav_link} to={`/catalog/assemblies`}>Зборки кс 1.6</Link>
                     <Link className={styles.nav_link} to='/catalog/weapon models'>моделі зброї</Link>
-                    <Link className={styles.nav_link} to='/catalog/player modles'>моделі гравців</Link>
+                    <Link className={styles.nav_link} to='/catalog/player models'>моделі гравців</Link>
                     <Link className={styles.nav_link} to='/catalog/maps'>карти</Link>
                     <Link className={styles.nav_link} to='/catalog/configs'>конфіги</Link>
                     <Link className={styles.nav_link} to='/catalog/graffiti'>графіті</Link>
