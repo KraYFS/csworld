@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     define: {
-      __BASE_URL__: JSON.stringify(baseURL),
+      BaseUrl: JSON.stringify(baseURL),
     },
   };
 });
