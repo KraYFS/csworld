@@ -14,6 +14,7 @@ import DownloadBtn from "../../Ui/downloadBtn/downloadBtn";
 import Peculiarities from "../../Ui/peculiarities/peculiarities";
 import Spoiler from "../../Ui/spoiler/spoiler";
 import { useParams } from "react-router-dom";
+import { __BASE_URL__ } from "../../constants/urls";
 
 const CatalogCard = () => {
     const [data, setData] = useState(null)
@@ -21,6 +22,7 @@ const CatalogCard = () => {
     // const [peculiarities, setPeculiarities] = useState(null)
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const { id } = useParams()
+    const { name } = useParams()
 
     // setTimeout(() => {
     //     setImages([{ id: 1, url: image }, { id: 2, url: image }, { id: 3, url: image }, { id: 4, url: image }, { id: 5, url: image }, { id: 6, url: image }, { id: 7, url: image }])
@@ -29,7 +31,7 @@ const CatalogCard = () => {
     // }, 0)
 
     useEffect(() => {
-        fetch(`${__BASE_URL__}/api/assemblies/${id}`)
+        fetch(`${__BASE_URL__}/api/${name}/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 setData(data);
@@ -89,10 +91,12 @@ const CatalogCard = () => {
                                 </div>
                             </div>
                         </div>
-                        <Spoiler title='Системные требования'
-                            text={data.systemRequirements} />
-                        <Spoiler title='Особенности'
-                            text={data.assemblyFeatures} />
+                        {
+                            name === 'assemblies' ? <Spoiler title='Системные требования' text={data.systemRequirements} /> : <Spoiler title='как установить?' text={data.systemRequirements} />
+                        }
+                        {
+                            name === 'assemblies' ? <Spoiler title='Особенности' text={data.assemblyFeatures} /> : <Spoiler title='как запустить анимацию или чёт тип того' text={data.assemblyFeatures} />
+                        }
                     </section>
                 </div>
             </div>

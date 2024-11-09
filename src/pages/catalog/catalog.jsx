@@ -21,10 +21,12 @@ const Catalog = () => {
             .then((data) => {
                 setData(data);
             });
-    }, [data])
+    }, [name])
 
 
     if (name === 'weapon models') {
+        if (!data) return <Loader />
+
         return (
             <div>
                 <Header />
@@ -56,9 +58,9 @@ const Catalog = () => {
                         <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} /> */}
                         </div>
                         <div className={styles.WeaponCategoryCards}>
-                            {/* {data.map(item => {
+                            {data.map(item => {
                                 return <WeaponCategoryCard link={`catalog card/weapon models/${item._id}`} key={item._id} content={item.content} title={item.title} img={item.pictures[0]} />
-                            })} */}
+                            })}
                         </div>
                     </section>
                 </div>
@@ -103,6 +105,90 @@ const Catalog = () => {
                         <div className={styles.WeaponCategoryCards}>
                             {data.map(item => {
                                 return <WeaponCategoryCard link={`catalog card/assemblies/${item._id}`} key={item._id} content={item.content} title={item.title} img={item.pictures[0]} />
+                            })}
+                        </div>
+                    </section>
+                </div>
+            </div>
+        )
+    } else if (name === 'player models') {
+        if (!data) return <Loader />
+
+        return (
+            <div>
+                <Header />
+                <div className="container">
+                    <section className="content">
+                        <SectionTitle title='Модели игроков для CS 1.6 - Скины игроков на КС 1.6' />
+                        <SeoText backColor={true} text='Модели игроков в Counter-Strike 1.6 являются ключевым элементом игрового процесса, определяющим внешний облик и стиль игроков на поле боя. Скины игроков предлагают возможность кастомизации внешнего вида персонажей, делая игровой процесс еще более увлекательным и индивидуальным. От классических военных форм до фантастических и экзотических костюмов, скины игроков позволяют каждому игроку выразить свою индивидуальность и предпочтения. Выбирайте из разнообразия дизайнов, чтобы создать уникальный облик своего персонажа и выделиться среди других игроков.' />
+                        <SectionTitle marginTop='40' title='Скачать модели игроков КС 1.6' />
+                        <div className={styles.weapon_category}>
+                            {/* <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} /> */}
+                        </div>
+                        <div className={styles.WeaponCategoryCards}>
+                            {data.map(item => {
+                                return <WeaponCategoryCard link={`catalog card/player models/${item._id}`} key={item._id} content={item.content} title={item.title} img={item.pictures[0]} />
+                            })}
+                        </div>
+                    </section>
+                </div>
+            </div>
+        )
+    } else if (name === 'maps') {
+        if (!data) return <Loader />
+
+        return (
+            <div>
+                <Header />
+                <div className="container">
+                    <section className="content">
+                        <SectionTitle title='Скачать карты для КС 1.6' />
+                        <SeoText backColor={true} text='Модели игроков в Counter-Strike 1.6 являются ключевым элементом игрового процесса, определяющим внешний облик и стиль игроков на поле боя. Скины игроков предлагают возможность кастомизации внешнего вида персонажей, делая игровой процесс еще более увлекательным и индивидуальным. От классических военных форм до фантастических и экзотических костюмов, скины игроков позволяют каждому игроку выразить свою индивидуальность и предпочтения. Выбирайте из разнообразия дизайнов, чтобы создать уникальный облик своего персонажа и выделиться среди других игроков.' />
+                        <SectionTitle marginTop='40' title='Скачать карты для КС 1.6' />
+                        <div className={styles.weapon_category}>
+                            {/* <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} /> */}
+                        </div>
+                        <div className={styles.WeaponCategoryCards}>
+                            {data.map(item => {
+                                return <WeaponCategoryCard link={`catalog card/maps/${item._id}`} key={item._id} content={item.content} title={item.title} img={item.pictures[0]} />
                             })}
                         </div>
                     </section>

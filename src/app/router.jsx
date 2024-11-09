@@ -16,12 +16,7 @@ const Router = createBrowserRouter([
         errorElement: <Page404 />
     },
     {
-        path: '/catalog card/weapon models/:id',
-        element: <CatalogCard />,
-        errorElement: <Page404 />
-    },
-    {
-        path: '/catalog card/assemblies/:id',
+        path: '/catalog card/:name/:id',
         element: <CatalogCard />,
         errorElement: <Page404 />
     },

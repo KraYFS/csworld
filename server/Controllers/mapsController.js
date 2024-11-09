@@ -1,11 +1,11 @@
-import WeaponModel from "../Schemas/WeaponModel.js"
+import Maps from "../Schemas/Maps.js"
 
-class weaponModelController {
+class MapsController {
     async create(req, res) {
         try {
             const { title, content, pictures, systemRequirements, assemblyFeatures, description } = req.body
-            const weaponModel = await WeaponModel.create({ title, content, pictures, systemRequirements, assemblyFeatures, description })
-            return res.status(201).json({ message: 'Assembly created successfully', weaponModel })
+            const maps = await Maps.create({ title, content, pictures, systemRequirements, assemblyFeatures, description })
+            return res.status(201).json({ message: 'Assembly created successfully', maps })
         } catch (e) {
             console.error(e)
             return res.status(500).json({ message: 'Internal Server Error', error: e.message })
@@ -14,8 +14,8 @@ class weaponModelController {
 
     async getAll(req, res) {
         try {
-            const weaponModel = await WeaponModel.find()
-            return res.json(weaponModel)
+            const maps = await Maps.find()
+            return res.json(maps)
         } catch (e) {
             console.error(e)
             return res.status(500).json({ message: 'Internal Server Error', error: e.message })
@@ -28,8 +28,8 @@ class weaponModelController {
             if (!id) {
                 return res.status(400).json({ message: 'Id не указан' })
             }
-            const weaponModel = await WeaponModel.findById(id)
-            return res.json(weaponModel)
+            const maps = await Maps.findById(id)
+            return res.json(maps)
         } catch (e) {
             console.error(e)
             return res.status(500).json({ message: 'Internal Server Error', error: e.message })
@@ -38,12 +38,12 @@ class weaponModelController {
 
     async update(req, res) {
         try {
-            const weaponModel = req.body
-            if (!weaponModel || !weaponModel.id) {
-                return res.status(400).json({ message: 'WeaponModel не указан' })
+            const maps = req.body
+            if (!maps || !maps.id) {
+                return res.status(400).json({ message: 'Maps не указан' })
             }
-            const updatedWeaponModel = await WeaponModel.findByIdAndUpdate(weaponModel.id, weaponModel, { new: true })
-            return res.json(updatedWeaponModel)
+            const updatedMaps = await Maps.findByIdAndUpdate(maps.id, maps, { new: true })
+            return res.json(updatedMaps)
         } catch (e) {
             console.error(e)
             return res.status(500).json({ message: 'Internal Server Error', error: e.message })
@@ -53,12 +53,12 @@ class weaponModelController {
     async patch(req, res) {
         try {
             const { id } = req.params
-            const weaponModel = req.body
+            const maps = req.body
             if (!id) {
-                return res.status(400).json({ message: 'WeaponModel не указан' })
+                return res.status(400).json({ message: 'Maps не указан' })
             }
-            const updatedWeaponModel = await WeaponModel.findByIdAndUpdate(id, weaponModel, { new: true })
-            return res.json(updatedWeaponModel)
+            const updatedMaps = await Maps.findByIdAndUpdate(id, maps, { new: true })
+            return res.json(updatedMaps)
         } catch (e) {
             console.error(e)
             return res.status(500).json({ message: 'Internal Server Error', error: e.message })
@@ -71,8 +71,8 @@ class weaponModelController {
             if (!id) {
                 return res.status(400).json({ message: 'Id не указан' })
             }
-            const weaponModel = await WeaponModel.findByIdAndDelete(id)
-            return res.json({ message: 'Assembly deleted successfully', weaponModel })
+            const maps = await Maps.findByIdAndDelete(id)
+            return res.json({ message: 'Assembly deleted successfully', maps })
         } catch (e) {
             console.error(e)
             return res.status(500).json({ message: 'Internal Server Error', error: e.message })
@@ -80,4 +80,4 @@ class weaponModelController {
     }
 }
 
-export default new weaponModelController()
+export default new MapsController()

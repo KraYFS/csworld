@@ -1,11 +1,11 @@
-import WeaponModel from "../Schemas/WeaponModel.js"
+import PlayerModel from "../Schemas/PlayerModel.js"
 
-class weaponModelController {
+class playerModelController {
     async create(req, res) {
         try {
             const { title, content, pictures, systemRequirements, assemblyFeatures, description } = req.body
-            const weaponModel = await WeaponModel.create({ title, content, pictures, systemRequirements, assemblyFeatures, description })
-            return res.status(201).json({ message: 'Assembly created successfully', weaponModel })
+            const playerModel = await PlayerModel.create({ title, content, pictures, systemRequirements, assemblyFeatures, description })
+            return res.status(201).json({ message: 'Assembly created successfully', playerModel })
         } catch (e) {
             console.error(e)
             return res.status(500).json({ message: 'Internal Server Error', error: e.message })
@@ -14,8 +14,8 @@ class weaponModelController {
 
     async getAll(req, res) {
         try {
-            const weaponModel = await WeaponModel.find()
-            return res.json(weaponModel)
+            const playerModel = await PlayerModel.find()
+            return res.json(playerModel)
         } catch (e) {
             console.error(e)
             return res.status(500).json({ message: 'Internal Server Error', error: e.message })
@@ -28,8 +28,8 @@ class weaponModelController {
             if (!id) {
                 return res.status(400).json({ message: 'Id не указан' })
             }
-            const weaponModel = await WeaponModel.findById(id)
-            return res.json(weaponModel)
+            const playerModel = await PlayerModel.findById(id)
+            return res.json(playerModel)
         } catch (e) {
             console.error(e)
             return res.status(500).json({ message: 'Internal Server Error', error: e.message })
@@ -38,12 +38,12 @@ class weaponModelController {
 
     async update(req, res) {
         try {
-            const weaponModel = req.body
-            if (!weaponModel || !weaponModel.id) {
-                return res.status(400).json({ message: 'WeaponModel не указан' })
+            const playerModel = req.body
+            if (!playerModel || !playerModel.id) {
+                return res.status(400).json({ message: 'PlayerModel не указан' })
             }
-            const updatedWeaponModel = await WeaponModel.findByIdAndUpdate(weaponModel.id, weaponModel, { new: true })
-            return res.json(updatedWeaponModel)
+            const updatedPlayerModel = await PlayerModel.findByIdAndUpdate(playerModel.id, playerModel, { new: true })
+            return res.json(updatedPlayerModel)
         } catch (e) {
             console.error(e)
             return res.status(500).json({ message: 'Internal Server Error', error: e.message })
@@ -53,12 +53,12 @@ class weaponModelController {
     async patch(req, res) {
         try {
             const { id } = req.params
-            const weaponModel = req.body
+            const playerModel = req.body
             if (!id) {
-                return res.status(400).json({ message: 'WeaponModel не указан' })
+                return res.status(400).json({ message: 'PlayerModel не указан' })
             }
-            const updatedWeaponModel = await WeaponModel.findByIdAndUpdate(id, weaponModel, { new: true })
-            return res.json(updatedWeaponModel)
+            const updatedPlayerModel = await PlayerModel.findByIdAndUpdate(id, playerModel, { new: true })
+            return res.json(updatedPlayerModel)
         } catch (e) {
             console.error(e)
             return res.status(500).json({ message: 'Internal Server Error', error: e.message })
@@ -71,8 +71,8 @@ class weaponModelController {
             if (!id) {
                 return res.status(400).json({ message: 'Id не указан' })
             }
-            const weaponModel = await WeaponModel.findByIdAndDelete(id)
-            return res.json({ message: 'Assembly deleted successfully', weaponModel })
+            const playerModel = await PlayerModel.findByIdAndDelete(id)
+            return res.json({ message: 'Assembly deleted successfully', playerModel })
         } catch (e) {
             console.error(e)
             return res.status(500).json({ message: 'Internal Server Error', error: e.message })
@@ -80,4 +80,4 @@ class weaponModelController {
     }
 }
 
-export default new weaponModelController()
+export default new playerModelController()

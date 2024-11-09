@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const WeaponModel = new mongoose.Schema({
+const Maps = new mongoose.Schema({
     title: { type: String, required: true },
     content: { type: Object, required: true },
     pictures: { type: Array, required: true },
@@ -9,4 +9,4 @@ const WeaponModel = new mongoose.Schema({
     assemblyFeatures: {type: String, required: true},
 })
 
-export default mongoose.model('WeaponModel', WeaponModel)
+export default mongoose.model('Maps', Maps)
