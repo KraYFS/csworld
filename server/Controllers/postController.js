@@ -3,8 +3,8 @@ import Post from "../Schemas/Post.js"
 class postController {
     async create(req, res) {
         try {
-            const { author, title, content, picture } = req.body
-            const post = await Post.create({ author, tittle, content, picture })
+            const { author, title, content, picture, postText } = req.body
+            const post = await Post.create({ author, title, content, picture, postText })
             res.json(post)
         } catch (e) {
             res.status(500).json(e)

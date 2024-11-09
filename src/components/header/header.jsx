@@ -39,7 +39,7 @@ const Header = () => {
                     <Link className={styles.nav_link} to='/catalog/configs'>конфіги</Link>
                     <Link className={styles.nav_link} to='/catalog/graffiti'>графіті</Link>
                     <Link className={styles.nav_link} to='/catalog/sounds'>звуки</Link>
-                    <Link className={styles.nav_link} to='/catalog/articles'>статті</Link>
+                    <Link className={styles.nav_link} to='/catalog/posts'>статті</Link>
                 </nav>
                 <div className={styles.language}>
                     <span>ua</span>

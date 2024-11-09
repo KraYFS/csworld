@@ -237,6 +237,90 @@ const Catalog = () => {
                 </div>
             </div>
         )
+    } else if (name === 'graffiti') {
+        if (!data) return <Loader />
+
+        return (
+            <div>
+                <Header />
+                <div className="container">
+                    <section className="content">
+                        <SectionTitle title='Скачать граффити и спрей-лого для CS 1.6' />
+                        <SeoText backColor={true} text='Конфиги (КФГ, configs, cfg) для CS 1.6 представляют собой файлы настроек, которые позволяют игрокам оптимизировать игру под свои личные предпочтения и улучшить производительность. Эти файлы содержат команды, изменяющие различные параметры игры, такие как настройки графики, звука, управления и прицела. Например, можно настроить чувствительность мыши, параметры сети или отключить ненужные эффекты, чтобы повысить FPS (кадры в секунду) и сделать игру более плавной. КФГ особенно полезны для тех, кто стремится к профессиональному уровню игры, так как они могут настроить каждую деталь под свои нужды, что позволяет быстрее реагировать на события в игре и добиваться лучших результатов. Существуют как универсальные конфиги, подходящие для большинства игроков, так и индивидуально настроенные под конкретные стили игры. Подбор правильного конфига может значительно повысить эффективность и комфортность игры в CS 1.6.' />
+                        <SectionTitle marginTop='40' title='Скачать граффити для КС 1.6' />
+                        <div className={styles.weapon_category}>
+                            {/* <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} /> */}
+                        </div>
+                        <div className={styles.WeaponCategoryCards}>
+                            {data.map(item => {
+                                return <WeaponCategoryCard link={`catalog card/graffiti/${item._id}`} key={item._id} content={item.content} title={item.title} img={item.pictures[0]} />
+                            })}
+                        </div>
+                    </section>
+                </div>
+            </div>
+        )
+    } else if (name === 'posts') {
+        if (!data) return <Loader />
+
+        return (
+            <div>
+                <Header />
+                <div className="container">
+                    <section className="content">
+                        <SectionTitle title='Скачать граффити и спрей-лого для CS 1.6' />
+                        <SeoText backColor={true} text='Конфиги (КФГ, configs, cfg) для CS 1.6 представляют собой файлы настроек, которые позволяют игрокам оптимизировать игру под свои личные предпочтения и улучшить производительность. Эти файлы содержат команды, изменяющие различные параметры игры, такие как настройки графики, звука, управления и прицела. Например, можно настроить чувствительность мыши, параметры сети или отключить ненужные эффекты, чтобы повысить FPS (кадры в секунду) и сделать игру более плавной. КФГ особенно полезны для тех, кто стремится к профессиональному уровню игры, так как они могут настроить каждую деталь под свои нужды, что позволяет быстрее реагировать на события в игре и добиваться лучших результатов. Существуют как универсальные конфиги, подходящие для большинства игроков, так и индивидуально настроенные под конкретные стили игры. Подбор правильного конфига может значительно повысить эффективность и комфортность игры в CS 1.6.' />
+                        <SectionTitle marginTop='40' title='Скачать граффити для КС 1.6' />
+                        <div className={styles.weapon_category}>
+                            {/* <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
+                        <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} /> */}
+                        </div>
+                        <div className={styles.WeaponCategoryCards}>
+                            {data.map(item => {
+                                return <WeaponCategoryCard link={`catalog card/posts/${item._id}`} key={item._id} content={item.content} title={item.title} img={item.pictures} />
+                            })}
+                        </div>
+                    </section>
+                </div>
+            </div>
+        )
     }
 }
 

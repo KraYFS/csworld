@@ -1,0 +1,8 @@
+.nav_links {
+    display: flex;
+    gap: 30px;
+    color: #000;
+    padding: 10px 20px;
+    border: 1px solid;
+    flex-direction: row;
+}

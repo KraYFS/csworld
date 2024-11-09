@@ -1,12 +1,12 @@
 import express from "express"
 import mongoose from "mongoose";
-import Post from "./Schemas/Post.js";
 import postRouter from "./routers/Post.router.js";
 import assembliesRouter from "./routers/assemblies.router.js"
 import weaponModelsRouter from './routers/weaponModels.router.js'
 import playerModelsRouter from './routers/playerModels.router.js'
 import maps from './routers/maps.router.js'
 import configs from './routers/configs.router.js'
+import graffiti from './routers/graffiti.router.js'
 import cors from "cors"
 
 const PORT = 3000;
@@ -25,6 +25,7 @@ app.use('/api', weaponModelsRouter)
 app.use('/api', playerModelsRouter)
 app.use('/api', maps)
 app.use('/api', configs)
+app.use('/api', graffiti)
 
 
 async function startApp() {

@@ -1,0 +1,17 @@
+.item {
+    padding: 20px;
+    border: 1px solid;
+    display: flex;
+    flex-direction: column;
+}
+
+.item_input {
+    padding: 20px;
+}
+
+.btn {
+    padding: 11px 20px;
+    background-color: var(--color-blue);
+    color: #fff;
+    margin: 10px;
+}

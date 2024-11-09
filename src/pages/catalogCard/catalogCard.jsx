@@ -18,17 +18,9 @@ import { __BASE_URL__ } from "../../constants/urls";
 
 const CatalogCard = () => {
     const [data, setData] = useState(null)
-    // const [images, setImages] = useState(null)
-    // const [peculiarities, setPeculiarities] = useState(null)
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const { id } = useParams()
     const { name } = useParams()
-
-    // setTimeout(() => {
-    //     setImages([{ id: 1, url: image }, { id: 2, url: image }, { id: 3, url: image }, { id: 4, url: image }, { id: 5, url: image }, { id: 6, url: image }, { id: 7, url: image }])
-    // setPeculiarities([{ id: 1, text: 'Чистая версия' }, { id: 2, text: 'Русский чат и ник' }, { id: 3, text: 'Для всех версий Windows (от XP до 11)' }, { id: 4, text: 'С игрой по интернету' }, { id: 5, text: 'С умными ботами' }])
-    //     setLoad(false)
-    // }, 0)
 
     useEffect(() => {
         fetch(`${__BASE_URL__}/api/${name}/${id}`)
@@ -62,7 +54,6 @@ const CatalogCard = () => {
                                     {data.pictures.map(img => {
                                         return (<SwiperSlide><img style={{ width: '518px' }} src={img} alt="" /></SwiperSlide>)
                                     })}
-                                    {/* {data.pictures.map(item => console.log(item))} */}
                                 </Swiper>
                                 <Swiper
                                     modules={[Thumbs, Pagination]}
@@ -73,7 +64,6 @@ const CatalogCard = () => {
                                 >
                                     {data.pictures.map(img => {
                                         return (<SwiperSlide><img style={{ width: '162px', height: '95px', borderRadius: '5px' }} src={img} alt="" /></SwiperSlide>)
-
                                     })}
                                 </Swiper>
                             </div>
@@ -85,10 +75,11 @@ const CatalogCard = () => {
                                         return (<Peculiarities text={text} />)
                                     })}
                                 </div>
-                                <div className={styles.btns}>
-                                    <DownloadBtn backColor='#6D86FF' text='Скачать' />
-                                    <DownloadBtn backColor='#54AB64' text='Скачать' />
-                                </div>
+                                {name !== 'posts'
+                                    ? <div className={styles.btns}>
+                                        <DownloadBtn backColor='#6D86FF' text='Скачать' />
+                                        <DownloadBtn backColor='#54AB64' text='Скачать' />
+                                    </div> : null}
                             </div>
                         </div>
                         {
