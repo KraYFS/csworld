@@ -6,6 +6,7 @@ import assembliesRouter from "./routers/assemblies.router.js"
 import weaponModelsRouter from './routers/weaponModels.router.js'
 import playerModelsRouter from './routers/playerModels.router.js'
 import maps from './routers/maps.router.js'
+import configs from './routers/configs.router.js'
 import cors from "cors"
 
 const PORT = 3000;
@@ -23,6 +24,7 @@ app.use('/api', assembliesRouter)
 app.use('/api', weaponModelsRouter)
 app.use('/api', playerModelsRouter)
 app.use('/api', maps)
+app.use('/api', configs)
 
 
 async function startApp() {
