@@ -9,7 +9,16 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     define: {
-      __BASE_URL__: JSON.stringify(baseURL),
+      BaseUrl: JSON.stringify(baseURL),
+    },
+    server: {
+      proxy: {
+        '/api': {
+          target: 'https://csworldfreelance.netlify.app',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+        },
+      },
     },
   };
 });
