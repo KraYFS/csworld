@@ -4,9 +4,11 @@ import { __BASE_URL__ } from "../../constants/urls";
 import Loader from "../../Ui/loader/loader";
 import WeaponCategoryCard from "../../Ui/weaponCategoryCard/weaponCategoryCard";
 import style from './adminPanelCatalog.module.css'
+import AdminForm from "../../components/adminForm/adminForm";
 
 const AdminPanelCatalog = () => {
     const [data, setData] = useState(null)
+    const [isCreate, setIsCreate] = useState(false)
     const { name } = useParams()
 
     useEffect(() => {
@@ -18,11 +20,28 @@ const AdminPanelCatalog = () => {
     }, [name])
     if (!data) return <Loader />
 
+    const changeMode = () => {
+        !isCreate ? setIsCreate(true) : setIsCreate(false)
+    }
+
     return (
-        <div className={style.items}>
-            {data.map(item => {
-                return <WeaponCategoryCard link={`edit card/${name}/${item._id}`} key={item._id} content={item.content} title={item.title} img={item.pictures[0]} />
-            })}
+        <div>
+            {!isCreate
+                ? (
+                    <div>
+                        <button onClick={changeMode} className={style.btn}>создать новый пост</button>
+                        <div className={style.items}>
+                            {data.map(item => {
+                                return <WeaponCategoryCard link={`edit card/${name}/${item._id}`} key={item._id} content={item.content} title={item.title} img={item.pictures[0]} />
+                            })}
+                        </div>
+                    </div>
+                ) :
+                <div>
+                    <button onClick={changeMode} className={style.btn}>Отмена</button>
+                    <AdminForm />
+                </div>
+            }
         </div>
     );
 }

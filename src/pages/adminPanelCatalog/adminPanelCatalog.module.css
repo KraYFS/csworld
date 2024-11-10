@@ -1,6 +1,29 @@
 .items {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
     padding: 20px;
+}
+
+.btn {
+    padding: 11px 20px;
+    background-color: var(--color-blue);
+    color: #fff;
+    margin: 10px;
+}
+
+.form {
+    padding: 25px;
+    background-color: #c6c6c6;
+    border-radius: 10px;
+    height: 100vh;
+    margin: 25px;
+    display: flex;
+    align-items: start;
+    gap: 20px;
+}
+
+.formInput {
+    padding: 10px 20px;
+    border-radius: 5px;
 }

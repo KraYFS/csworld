@@ -21,11 +21,7 @@ const CatalogCardEdit = () => {
     }, [name])
 
     const editElem = () => {
-        setIsEditData(false)
-    }
-
-    const cancleEdit = () => {
-        setIsEditData(true)
+        isEdit ? setIsEditData(false) : setIsEditData(true)
     }
 
     const changeTitle = (event) => {
@@ -90,7 +86,7 @@ const CatalogCardEdit = () => {
     } else {
         return (
             <div>
-                <button className={style.btn} onClick={cancleEdit}>Отмена</button>
+                <button className={style.btn} onClick={editElem}>Отмена</button>
                 <div className={style.item}>
                     Название: {data.title}
                     <input className={style.item_input} onChange={changeTitle} type="text" placeholder='поменять значение "Название"' />
@@ -104,7 +100,7 @@ const CatalogCardEdit = () => {
                         return (<img style={{ width: '300px' }} src={img} alt="" />)
                     })}
                 </div>
-                <button className={style.btn} onClick={cancleEdit}>Отмена</button>
+                <button className={style.btn} onClick={editElem}>Отмена</button>
                 <button className={style.btn} onClick={saveEdit}>Сохранить</button>
             </div>
         )
