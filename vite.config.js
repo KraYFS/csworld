@@ -11,14 +11,5 @@ export default defineConfig(({ mode }) => {
     define: {
       BaseUrl: JSON.stringify(baseURL),
     },
-    server: {
-      proxy: {
-        '/api': {
-          target: 'https://csworldfreelance.netlify.app',
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
-        },
-      },
-    },
   };
 });
