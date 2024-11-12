@@ -2,11 +2,12 @@ import mongoose from "mongoose";
 
 const WeaponModel = new mongoose.Schema({
     title: { type: String, required: true },
-    content: { type: Object, required: true },
+    content: { type: Array, required: true },
     pictures: { type: Array, required: true },
     description: {type: String, required: true},
     systemRequirements: {type: String, required: true},
     assemblyFeatures: {type: String, required: true},
+    files: {type: Array, required: true},
 })
 
 export default mongoose.model('WeaponModel', WeaponModel)

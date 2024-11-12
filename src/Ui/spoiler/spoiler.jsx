@@ -5,19 +5,34 @@ import { useState } from 'react';
 const Spoiler = (props) => {
     const [isClicked, setIsClicked] = useState(false)
 
-    return (
-        <div className={styles.spoiler}>
-            <div onClick={() => {
-                !isClicked ? setIsClicked(true) : setIsClicked(false)
-            }} className={styles.spoiler_title}>
-                <img className={`${styles.spoiler_icon} ${isClicked ? styles.content_open : styles.content_close}`} src={icon} alt="" />
-                {props.title}
+    if (props.post) {
+        return (
+            <div className={styles.spoiler}>
+                <div className={styles.spoiler_title}>
+                    <img className={`${styles.spoiler_icon} ${styles.content_open}`} src={icon} alt="" />
+                    {props.title}
+                </div>
+                <div className={`${styles.spoiler_content} ${styles.visible}`}>
+                    {props.text}
+                </div>
             </div>
-            <div className={`${styles.spoiler_content} ${isClicked ? styles.visible : styles.hidden}`}>
-                {props.text}
+        );
+    } else {
+        return (
+            <div className={styles.spoiler}>
+                <div onClick={() => {
+                    !isClicked ? setIsClicked(true) : setIsClicked(false)
+                }} className={styles.spoiler_title}>
+                    <img className={`${styles.spoiler_icon} ${isClicked ? styles.content_open : styles.content_close}`} src={icon} alt="" />
+                    {props.title}
+                </div>
+                <div className={`${styles.spoiler_content} ${isClicked ? styles.visible : styles.hidden}`}>
+                    {props.text}
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
+
 }
 
 export default Spoiler;

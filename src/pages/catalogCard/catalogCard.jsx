@@ -30,6 +30,21 @@ const CatalogCard = () => {
             });
     }, [id])
 
+    const downloadTorrentFile = (fileName) => {
+        const fileUrl = `${__BASE_URL__}/api/download${data.files[1][0]}`;  // Формируем URL для скачивания файла
+
+        // Открываем файл для скачивания
+        window.location.href = fileUrl;
+    };
+
+
+    const downloadFile = (fileName) => {
+        const fileUrl = `${__BASE_URL__}/api/download${data.files[0][0]}`;  // Формируем URL для скачивания файла
+
+        // Открываем файл для скачивания
+        window.location.href = fileUrl;
+    };
+
     if (!data) {
         return (
             <Loader />
@@ -69,7 +84,7 @@ const CatalogCard = () => {
                             </div>
                             <div>
                                 <SectionTitle title={data.title} />
-                                <SeoText backColor={false} text={data.description} />
+                                <SeoText maxWidth='1000px' backColor={false} text={data.description} />
                                 <div className={styles.peculiarities}>
                                     {data.content.map((text) => {
                                         return (<Peculiarities text={text} />)
@@ -77,16 +92,16 @@ const CatalogCard = () => {
                                 </div>
                                 {name !== 'posts'
                                     ? <div className={styles.btns}>
-                                        <DownloadBtn backColor='#6D86FF' text='Скачать' />
-                                        <DownloadBtn backColor='#54AB64' text='Скачать' />
+                                        <DownloadBtn click={downloadFile} backColor='#6D86FF' text='Скачать' />
+                                        <DownloadBtn click={downloadTorrentFile} backColor='#54AB64' text='Скачать' />
                                     </div> : null}
                             </div>
                         </div>
                         {
-                            name === 'assemblies' ? <Spoiler title='Системные требования' text={data.systemRequirements} /> : <Spoiler title='как установить?' text={data.systemRequirements} />
+                            name === 'assemblies' ? <Spoiler title='Системные требования' text={data.systemRequirements} /> : name === 'posts' ? <Spoiler title='Автор' text={data.systemRequirements} /> : <Spoiler title='как установить?' text={data.systemRequirements} />
                         }
                         {
-                            name === 'assemblies' ? <Spoiler title='Особенности' text={data.assemblyFeatures} /> : <Spoiler title='как запустить анимацию или чёт тип того' text={data.assemblyFeatures} />
+                            name === 'assemblies' ? <Spoiler title='Особенности' text={data.assemblyFeatures} /> : name === 'posts' ? <Spoiler post='true' text={data.systemRequirements} /> : name === 'maps' ? < Spoiler title='Особености' text={data.systemRequirements} /> : < Spoiler title='Анимация' text={data.systemRequirements} />
                         }
                     </section>
                 </div>
