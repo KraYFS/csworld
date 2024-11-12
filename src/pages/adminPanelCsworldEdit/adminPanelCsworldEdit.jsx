@@ -13,7 +13,6 @@ const AdminPanelCsworldEdit = () => {
                 <NavLink className={style.nav_links} to='/adminPanelCatalog/configs'>конфиги</NavLink>
                 <NavLink className={style.nav_links} to='/adminPanelCatalog/graffiti'>граффити</NavLink>
                 <NavLink className={style.nav_links} to='/adminPanelCatalog/sounds'>звуки</NavLink>
-                <NavLink className={style.nav_links} to='/adminPanelCatalog/posts'>статьи</NavLink>
             </header>
         </div>
     );

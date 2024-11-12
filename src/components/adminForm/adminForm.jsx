@@ -11,6 +11,7 @@ const AdminForm = () => {
     const [systemRequirements, setSystemRequirements] = useState('');
     const [assemblyFeatures, setAssemblyFeatures] = useState('');
     const [images, setImages] = useState([]);
+    const [temporaryLink, setTemporaryLink] = useState('');
     const [file, setFile] = useState(null);
     const [torrentFile, setTorrentFile] = useState(null);
     const [uploadedImagePaths, setUploadedImagePaths] = useState([]);
@@ -28,8 +29,9 @@ const AdminForm = () => {
     const handleImageUpload = (event) => {
         const files = Array.from(event.target.files); // Получаем выбранные файлы
         setImages(files);  // Сохраняем файлы
+        setTemporaryLink(URL.createObjectURL(files[0]))
     };
-    
+
     const addFile = (event) => {
         const files = Array.from(event.target.files); // Получаем выбранные файлы
         setFile(files[0])
@@ -40,9 +42,6 @@ const AdminForm = () => {
         setTorrentFile(files[0])
     }
 
-    console.log(file, torrentFile);
-    
-
     // Обработчик отправки формы
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -52,12 +51,17 @@ const AdminForm = () => {
         formData.append("title", title);
         formData.append("description", description);
         formData.append("tags", tags);  // Преобразуем теги в строку
-        formData.append("systemRequirements", systemRequirements);
-        formData.append("assemblyFeatures", assemblyFeatures);
         
         // Добавляем файлы
-        formData.append("appFile", file);
-        formData.append("torrentFile", torrentFile);
+        if (name !== 'posts') {
+            formData.append("appFile", file);
+            formData.append("torrentFile", torrentFile);
+            formData.append("assemblyFeatures", assemblyFeatures);
+            formData.append("systemRequirements", systemRequirements);
+        } else {
+            formData.append('author', systemRequirements)
+            formData.append('postText', assemblyFeatures)
+        }
         images.forEach((image) => {
             formData.append("files", image);
         });
@@ -91,17 +95,26 @@ const AdminForm = () => {
                     <input onChange={editTitle} type="text" placeholder="Название" value={title} />
                     <input onChange={editDescription} type="text" placeholder="Описание" value={description} />
                     <input onChange={editTags} type="text" placeholder="Теги" value={tags.join(',')} />
-                    <input onChange={editSystemRequirements} type="text" placeholder="Как установить" value={systemRequirements} />
-                    <input onChange={editAssemblyFeatures} type="text" placeholder="Анимация" value={assemblyFeatures} />
+                    {
+                        name === 'posts' ? <input onChange={editSystemRequirements} type="text" placeholder="Автор" value={systemRequirements} /> : <input onChange={editSystemRequirements} type="text" placeholder="Как установить" value={systemRequirements} />
+                    }
+                    {
+                        name === 'posts' ? <textarea onChange={editAssemblyFeatures} type="text" placeholder="текст поста" value={assemblyFeatures} /> : <input onChange={editAssemblyFeatures} type="text" placeholder="Особенности" value={assemblyFeatures} />
+                    }
                     добавить картинки:
                     <input type="file" accept="image/*" multiple onChange={handleImageUpload} /> {/* Поле для загрузки нескольких файлов */}
-                    добавить файл:
-                    <input type="file" accept="*" onChange={addFile} /> {/* Поле для загрузки  файлов */}
-                    добавить торрент файл:
-                    <input type="file" accept="*" onChange={addTorrentFile} /> {/* Поле для загрузки торрент файлов */}
+                    {
+                        name === 'posts' ? <div></div> :
+                            <div style={{display: 'flex', flexDirection: 'column'}}>
+                                добавить файл:
+                                <input type="file" accept="*" onChange={addFile} /> {/* Поле для загрузки  файлов */}
+                                добавить торрент файл:
+                                <input type="file" accept="*" onChange={addTorrentFile} /> {/* Поле для загрузки торрент файлов */}
+                            </div>
+                    }
                 </div>
                 <div className={styles.preview}>
-                    {images[0] && <WeaponCategoryCard post='true' title={title} content={tags} img={images[0]} />}
+                    {images[0] && <WeaponCategoryCard post='true' title={title} content={tags} img={temporaryLink} />}
                 </div>
             </form>
             <button onClick={handleSubmit} className={styles.btn}>Создать</button>

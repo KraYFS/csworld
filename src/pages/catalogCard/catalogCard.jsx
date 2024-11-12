@@ -98,10 +98,10 @@ const CatalogCard = () => {
                             </div>
                         </div>
                         {
-                            name === 'assemblies' ? <Spoiler title='Системные требования' text={data.systemRequirements} /> : name === 'posts' ? <Spoiler title='Автор' text={data.systemRequirements} /> : <Spoiler title='как установить?' text={data.systemRequirements} />
+                            name === 'assemblies' ? <Spoiler title='Системные требования' text={data.systemRequirements} /> : name === 'posts' ? <Spoiler title='Автор' text={data.author} /> : <Spoiler title='как установить?' text={data.systemRequirements} />
                         }
                         {
-                            name === 'assemblies' ? <Spoiler title='Особенности' text={data.assemblyFeatures} /> : name === 'posts' ? <Spoiler post='true' text={data.systemRequirements} /> : name === 'maps' ? < Spoiler title='Особености' text={data.systemRequirements} /> : < Spoiler title='Анимация' text={data.systemRequirements} />
+                            name === 'assemblies' ? <Spoiler title='Особенности' text={data.assemblyFeatures} /> : name === 'posts' ? <Spoiler post='true' text={data.postText} /> : name === 'maps' ? < Spoiler title='Особености' text={data.systemRequirements} /> : < Spoiler title='Анимация' text={data.systemRequirements} />
                         }
                     </section>
                 </div>

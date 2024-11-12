@@ -10,6 +10,7 @@ const CatalogCardEdit = () => {
     const [title, setTitle] = useState('')
     const [newPictures, setNewPictures] = useState([])
     const [description, setDescription] = useState('')
+    const [tags, setTags] = useState('')
     const [newUrls, setNewUrls] = useState('')  // Строка для ввода ссылок через запятую
     const navigate = useNavigate()
     const deleteBlock = useRef(null)
@@ -41,6 +42,12 @@ const CatalogCardEdit = () => {
 
     const changeDescription = (event) => {
         setDescription(event.target.value);
+        
+    };
+    
+    const changeTags = (event) => {
+        setTags(event.target.value.split(','));
+        console.log(tags);
     };
 
     const deleteElem = () => {
@@ -70,7 +77,8 @@ const CatalogCardEdit = () => {
             body: JSON.stringify({
                 title: title,
                 description: description,
-                pictures: newPictures
+                pictures: newPictures,
+                content: tags
             })
         })
             .then((res) => {
@@ -134,6 +142,10 @@ const CatalogCardEdit = () => {
                 <div className={style.item}>
                     Описание: {data.description}
                     <input className={style.item_input} onChange={changeDescription} type="text" placeholder='поменять значение "Описания"' />
+                </div>
+                <div className={style.item}>
+                    теги: {data.content.map(tag => tag)}
+                    <input className={style.item_input} onChange={changeTags} type="text" placeholder='поменять значение "Теги"' />
                 </div>
                 <div className={style.item}>
                     Картинки: {newPictures.map((img, index) => {
