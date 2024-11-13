@@ -199,7 +199,7 @@
 
 .open {
   transform: rotate(180deg);
-}url(../../../../chat/frontend/src/widgets/Header/eng.svg) url(../../../../chat/frontend/src/widgets/Header/openIcon.svg) url(../../../../chat/frontend/src/widgets/Header/ua.svg)
+}
 
 .menu {
   display: flex;
