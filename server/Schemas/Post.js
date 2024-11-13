@@ -5,7 +5,14 @@ const Post = new mongoose.Schema({
     title: { type: String, required: true },
     content: { type: Array, required: true },
     postText: { type: String, required: true },
-    pictures: { type: Array, require: true }
+    pictures: { type: Array, require: true },
+    description: { type: String, require: true },
+    files: {type: Array, required: true},
+    titleSecondLang: {type: String, required: true},
+    descriptionSecondLang: {type: String, required: true},
+    tagsSecondLang: { type: Array, require: true },
+    authorSecondLang: {type: String, required: true},
+    postTextSecondLang: {type: String, required: true}
 })
 
 export default mongoose.model('Post', Post)

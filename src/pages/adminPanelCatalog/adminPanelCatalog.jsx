@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { __BASE_URL__ } from "../../constants/urls";
 import Loader from "../../Ui/loader/loader";
 import WeaponCategoryCard from "../../Ui/weaponCategoryCard/weaponCategoryCard";
@@ -7,7 +7,27 @@ import style from './adminPanelCatalog.module.css'
 import AdminForm from "../../components/adminForm/adminForm";
 
 const AdminPanelCatalog = () => {
+    
+    const [dataLogin, setDataLogin] = useState(null)
     const [data, setData] = useState(null)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        // Проверяем авторизацию при загрузке компонента
+        fetch(`${__BASE_URL__}/admin`, {
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Not authorized');
+                return response.json();
+            })
+            .then(data => setDataLogin(data))
+            .catch(error => {
+                navigate('/login');  // Перенаправляем на страницу входа, если не авторизован
+                console.error(error);
+            });
+    }, [navigate]);
+
     const [isCreate, setIsCreate] = useState(false)
     const { name } = useParams()
 

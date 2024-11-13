@@ -1,7 +1,28 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import style from './adminPanelCsworldEdit.module.css'
+import { useEffect, useState } from "react";
+import { __BASE_URL__ } from "../../constants/urls";
 
 const AdminPanelCsworldEdit = () => {
+    const navigate = useNavigate();
+    const [dataLogin, setDataLogin] = useState(null)
+
+    useEffect(() => {
+        // Проверяем авторизацию при загрузке компонента
+        fetch(`${__BASE_URL__}/admin`, {
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Not authorized');
+                return response.json();
+            })
+            .then(data => setDataLogin(data))
+            .catch(error => {
+                navigate('/login');  // Перенаправляем на страницу входа, если не авторизован
+                console.error(error);
+            });
+    }, [navigate]);
+    
     return (
         <div>
             <header>

@@ -12,6 +12,7 @@ import cors from "cors";
 import multer from 'multer';
 import path from 'path'
 import fs from 'fs'
+import jwt from 'jsonwebtoken';
 import WeaponModel from './Schemas/WeaponModel.js'; // Добавьте импорт модели
 import PlayerModel from './Schemas/PlayerModel.js'; // Добавьте импорт модели
 import PostModel from './Schemas/Post.js'; // Добавьте импорт модели
@@ -21,6 +22,9 @@ import ConfigsModel from './Schemas/Configs.js'; // Добавьте импор�
 import AssembliesModel from './Schemas/Assemblies.js'; // Добавьте импорт модели
 import GraffitiModel from './Schemas/Graffiti.js'; // Добавьте импорт модели
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // Определение __filename и __dirname в модуле ES6
 const __filename = fileURLToPath(import.meta.url);
@@ -30,10 +34,42 @@ const PORT = 3000;
 const DB_URL = 'mongodb+srv://csWorldDB:csWorldDB1244@cluster0.cra75.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 const app = express();
+app.use(express.json());
 
 app.use(cors({
     origin: ['http://localhost:5173', 'https://csworldfreelance.netlify.app']
 }));
+
+const SECRET_KEY = 'b0b1d0fefc5a97c6e2b846e7b3fbb4a9f8e3dc9f38a2f9e3f3bb44ff33aa2d12';
+
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    // Замените на вашу логику аутентификации
+    if (username === 'admin' && password === 'admin') {
+        const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' });
+        return res.json({ token });
+    } else {
+        return res.status(401).json({ message: "Invalid credentials" });
+    }
+});
+
+// Маршрут для проверки токена
+app.get('/admin', (req, res) => {
+    const authHeader = req.headers.authorization;
+
+    if (authHeader) {
+        const token = authHeader.split(' ')[1];
+
+        jwt.verify(token, SECRET_KEY, (err, user) => {
+            if (err) return res.sendStatus(403);
+            res.json({ message: "Welcome to the admin panel" });
+        });
+    } else {
+        res.sendStatus(401);
+    }
+});
+
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -45,6 +81,7 @@ const storage = multer.diskStorage({
     }
 });
 
+
 // Создание экземпляра multer с указанными настройками
 const upload = multer({ storage: storage });
 
@@ -53,7 +90,7 @@ app.post('/api/weapon%20models', upload.fields([
     { name: 'torrentFile', maxCount: 1 },
     { name: 'appFile', maxCount: 1 }
 ]), async (req, res) => {
-    const { title, description, tags, systemRequirements, assemblyFeatures } = req.body;
+    const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
     const files = req.files['files'];
     const torrentFiles = req.files['torrentFile'];
     const appFiles = req.files['appFile'];
@@ -70,6 +107,11 @@ app.post('/api/weapon%20models', upload.fields([
             description,
             systemRequirements,
             assemblyFeatures,
+            titleSecondLang,
+            descriptionSecondLang,
+            tagsSecondLang,
+            assemblyFeaturesSecondLang,
+            systemRequirementsSecondLang,
             files: [appFilePaths, torrentPaths]
         });
 
@@ -92,12 +134,13 @@ app.post('/api/weapon%20models', upload.fields([
     }
 });
 
+
 app.post('/api/player%20models', upload.fields([
     { name: 'files', maxCount: 10 },
     { name: 'torrentFile', maxCount: 1 },
     { name: 'appFile', maxCount: 1 }
 ]), async (req, res) => {
-    const { title, description, tags, systemRequirements, assemblyFeatures } = req.body;
+    const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
     const files = req.files['files'];
     const torrentFiles = req.files['torrentFile'];
     const appFiles = req.files['appFile'];
@@ -107,17 +150,22 @@ app.post('/api/player%20models', upload.fields([
     const appFilePaths = appFiles ? appFiles.map(file => `/${file.filename}`) : [];
 
     try {
-        const newWeapon = new PlayerModel({
+        const newPlayer = new PlayerModel({
             title,
             content: tags.split(','),
             pictures: filePaths,
             description,
             systemRequirements,
             assemblyFeatures,
+            titleSecondLang,
+            descriptionSecondLang,
+            tagsSecondLang,
+            assemblyFeaturesSecondLang,
+            systemRequirementsSecondLang,
             files: [appFilePaths, torrentPaths]
         });
 
-        await newWeapon.save(); // Сохранение в базу данных
+        await newPlayer.save(); // Сохранение в базу данных
 
         // Логика для сохранения данных в базу или другие действия
         console.log("Title:", title);
@@ -141,7 +189,7 @@ app.post('/api/maps', upload.fields([
     { name: 'torrentFile', maxCount: 1 },
     { name: 'appFile', maxCount: 1 }
 ]), async (req, res) => {
-    const { title, description, tags, systemRequirements, assemblyFeatures } = req.body;
+    const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
     const files = req.files['files'];
     const torrentFiles = req.files['torrentFile'];
     const appFiles = req.files['appFile'];
@@ -158,6 +206,11 @@ app.post('/api/maps', upload.fields([
             description,
             systemRequirements,
             assemblyFeatures,
+            titleSecondLang,
+            descriptionSecondLang,
+            tagsSecondLang,
+            assemblyFeaturesSecondLang,
+            systemRequirementsSecondLang,
             files: [appFilePaths, torrentPaths]
         });
 
@@ -185,7 +238,7 @@ app.post('/api/posts', upload.fields([
     { name: 'torrentFile', maxCount: 1 },
     { name: 'appFile', maxCount: 1 }
 ]), async (req, res) => {
-    const { title, description, tags, systemRequirements, postText, author } = req.body;
+    const { title, description, tags, systemRequirements, postText, author, titleSecondLang, descriptionSecondLang, tagsSecondLang, authorSecondLang, postTextSecondLang } = req.body;
     const files = req.files['files'];
 
     const filePaths = files ? files.map(file => `/uploads/${file.filename}`) : [];
@@ -198,7 +251,12 @@ app.post('/api/posts', upload.fields([
             description,
             systemRequirements,
             author,
-            postText
+            postText,
+            titleSecondLang,
+            descriptionSecondLang,
+            tagsSecondLang,
+            authorSecondLang,
+            postTextSecondLang
         });
 
         await newPost.save(); // Сохранение в базу данных
@@ -222,7 +280,7 @@ app.post('/api/configs', upload.fields([
     { name: 'torrentFile', maxCount: 1 },
     { name: 'appFile', maxCount: 1 }
 ]), async (req, res) => {
-    const { title, description, tags, systemRequirements, assemblyFeatures } = req.body;
+    const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
     const files = req.files['files'];
     const torrentFiles = req.files['torrentFile'];
     const appFiles = req.files['appFile'];
@@ -239,6 +297,11 @@ app.post('/api/configs', upload.fields([
             description,
             systemRequirements,
             assemblyFeatures,
+            titleSecondLang,
+            descriptionSecondLang,
+            tagsSecondLang,
+            assemblyFeaturesSecondLang,
+            systemRequirementsSecondLang,
             files: [appFilePaths, torrentPaths]
         });
 
@@ -266,7 +329,7 @@ app.post('/api/graffiti', upload.fields([
     { name: 'torrentFile', maxCount: 1 },
     { name: 'appFile', maxCount: 1 }
 ]), async (req, res) => {
-    const { title, description, tags, systemRequirements, assemblyFeatures } = req.body;
+    const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
     const files = req.files['files'];
     const torrentFiles = req.files['torrentFile'];
     const appFiles = req.files['appFile'];
@@ -283,6 +346,11 @@ app.post('/api/graffiti', upload.fields([
             description,
             systemRequirements,
             assemblyFeatures,
+            titleSecondLang,
+            descriptionSecondLang,
+            tagsSecondLang,
+            assemblyFeaturesSecondLang,
+            systemRequirementsSecondLang,
             files: [appFilePaths, torrentPaths]
         });
 
@@ -310,7 +378,7 @@ app.post('/api/assemblies', upload.fields([
     { name: 'torrentFile', maxCount: 1 },
     { name: 'appFile', maxCount: 1 }
 ]), async (req, res) => {
-    const { title, description, tags, systemRequirements, assemblyFeatures } = req.body;
+    const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
     const files = req.files['files'];
     const torrentFiles = req.files['torrentFile'];
     const appFiles = req.files['appFile'];
@@ -327,6 +395,11 @@ app.post('/api/assemblies', upload.fields([
             description,
             systemRequirements,
             assemblyFeatures,
+            titleSecondLang,
+            descriptionSecondLang,
+            tagsSecondLang,
+            assemblyFeaturesSecondLang,
+            systemRequirementsSecondLang,
             files: [appFilePaths, torrentPaths]
         });
 
@@ -354,7 +427,7 @@ app.post('/api/sounds', upload.fields([
     { name: 'torrentFile', maxCount: 1 },
     { name: 'appFile', maxCount: 1 }
 ]), async (req, res) => {
-    const { title, description, tags, systemRequirements, assemblyFeatures } = req.body;
+    const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
     const files = req.files['files'];
     const torrentFiles = req.files['torrentFile'];
     const appFiles = req.files['appFile'];
@@ -371,6 +444,11 @@ app.post('/api/sounds', upload.fields([
             description,
             systemRequirements,
             assemblyFeatures,
+            titleSecondLang,
+            descriptionSecondLang,
+            tagsSecondLang,
+            assemblyFeaturesSecondLang,
+            systemRequirementsSecondLang,
             files: [appFilePaths, torrentPaths]
         });
 
@@ -414,7 +492,6 @@ app.get('/api/download/:fileName', (req, res) => {
     });
 });
 
-app.use(express.json());
 app.use('/api', postRouter);
 app.use('/api', assembliesRouter);
 app.use('/api', weaponModelsRouter);

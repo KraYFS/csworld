@@ -15,12 +15,16 @@ import Peculiarities from "../../Ui/peculiarities/peculiarities";
 import Spoiler from "../../Ui/spoiler/spoiler";
 import { useParams } from "react-router-dom";
 import { __BASE_URL__ } from "../../constants/urls";
+import { useTranslation } from 'react-i18next';
+
 
 const CatalogCard = () => {
     const [data, setData] = useState(null)
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const { id } = useParams()
     const { name } = useParams()
+    const { t, i18n } = useTranslation();
+
 
     useEffect(() => {
         fetch(`${__BASE_URL__}/api/${name}/${id}`)
@@ -83,25 +87,27 @@ const CatalogCard = () => {
                                 </Swiper>
                             </div>
                             <div>
-                                <SectionTitle title={data.title} />
-                                <SeoText maxWidth='1000px' backColor={false} text={data.description} />
+                                <SectionTitle title={i18n.language === 'ua' ? data.titleSecondLang : data.title} />
+                                <SeoText maxWidth='1000px' backColor={false} text={i18n.language === 'ua' ? data.descriptionSecondLang : data.description} />
                                 <div className={styles.peculiarities}>
-                                    {data.content.map((text) => {
+                                    {i18n.language === 'ua' ? data.tagsSecondLang.map((text) => {
+                                        return (<Peculiarities text={text} />)
+                                    }): data.content.map((text) => {
                                         return (<Peculiarities text={text} />)
                                     })}
                                 </div>
                                 {name !== 'posts'
                                     ? <div className={styles.btns}>
-                                        <DownloadBtn click={downloadFile} backColor='#6D86FF' text='Скачать' />
-                                        <DownloadBtn click={downloadTorrentFile} backColor='#54AB64' text='Скачать' />
+                                        <DownloadBtn click={downloadFile} backColor='#6D86FF' text={t('downloadBtn')} />
+                                        <DownloadBtn click={downloadTorrentFile} backColor='#54AB64' text={t('downloadBtn')} />
                                     </div> : null}
                             </div>
                         </div>
                         {
-                            name === 'assemblies' ? <Spoiler title='Системные требования' text={data.systemRequirements} /> : name === 'posts' ? <Spoiler title='Автор' text={data.author} /> : <Spoiler title='как установить?' text={data.systemRequirements} />
+                            name === 'assemblies' ? <Spoiler title={t('systemRequirements')} text={data.systemRequirements} /> : name === 'posts' ? <Spoiler title='Автор' text={data.author} /> : <Spoiler title={t('howDownload')} text={i18n.language === 'ua' ? data.systemRequirementsSecondLang : data.systemRequirements} />
                         }
                         {
-                            name === 'assemblies' ? <Spoiler title='Особенности' text={data.assemblyFeatures} /> : name === 'posts' ? <Spoiler post='true' text={data.postText} /> : name === 'maps' ? < Spoiler title='Особености' text={data.systemRequirements} /> : < Spoiler title='Анимация' text={data.systemRequirements} />
+                            name === 'assemblies' ? <Spoiler title={t('assembly')} text={data.assemblyFeatures} /> : name === 'posts' ? <Spoiler post='true' text={data.postText} /> : name === 'maps' ? < Spoiler title={t('assembly')} text={data.systemRequirements} /> : < Spoiler title={t('animation')} text={i18n.language === 'ua' ? data.assemblyFeaturesSecondLang : data.assemblyFeatures} />
                         }
                     </section>
                 </div>

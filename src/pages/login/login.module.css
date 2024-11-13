@@ -1,0 +1,53 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f8ff; /* Светло-синий фон */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin: 0 auto;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 4px;
+    border: 1px solid #d1e8ff; /* Светлый бордер */
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-color: #7ec8f4; /* Яркий светло-синий при фокусе */
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #7ec8f4; /* Основной светло-синий цвет */
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #5bb3e6; /* Темнее синий при наведении */
+}
+
+button:active {
+    background-color: #4f9fd9; /* Ещё темнее при нажатии */
+}
+
+h2 {
+    color: #4f9fd9; /* Темно-синий заголовок */
+    margin-bottom: 20px;
+    font-size: 24px;
+}

@@ -6,6 +6,7 @@ import CatalogCard from "../pages/catalogCard/catalogCard";
 import AdminPanelCsworldEdit from "../pages/adminPanelCsworldEdit/adminPanelCsworldEdit";
 import AdminPanelCatalog from "../pages/adminPanelCatalog/adminPanelCatalog";
 import CatalogCardEdit from "../pages/CatalogCardEdit/CatalogCardEdit";
+import Login from "../pages/login/Login";
 
 const Router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ const Router = createBrowserRouter([
     {
         path: '/adminPanelCatalog/:name',
         element: <AdminPanelCatalog />
+    },
+    {
+        path: '/login',
+        element: <Login />
     },
     {
         path: '/page404',
