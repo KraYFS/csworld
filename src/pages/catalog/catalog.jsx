@@ -18,7 +18,7 @@ const Catalog = () => {
 
     useEffect(() => {
         fetch(`${__BASE_URL__}/api/${name}`)
-            .then((res) => res.json())
+            .then((res) => res)
             .then((data) => {
                 setData(data);
             });
