@@ -90,6 +90,7 @@ app.post('/api/weapon%20models', upload.fields([
     { name: 'torrentFile', maxCount: 1 },
     { name: 'appFile', maxCount: 1 }
 ]), async (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
     const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
     const files = req.files['files'];
     const torrentFiles = req.files['torrentFile'];
@@ -126,8 +127,6 @@ app.post('/api/weapon%20models', upload.fields([
         console.log("Files:", files);
         console.log("appFile:", appFiles);
         console.log("torrentFiles:", torrentFiles);
-
-        res.json()
 
         res.status(200).send({ message: "Данные успешно получены" });
     } catch (error) {
