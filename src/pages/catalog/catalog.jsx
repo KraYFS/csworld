@@ -17,7 +17,7 @@ const Catalog = () => {
     const { name } = useParams()
 
     useEffect(() => {
-        fetch(`https://csworldfreelance.netlify.app/api/${name}`)
+        fetch(`${__BASE_URL__}/api/${name}`)
             .then((res) => res.json())
             .then((data) => {
                 setData(data);
