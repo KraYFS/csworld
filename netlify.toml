@@ -3,5 +3,6 @@
 
 [[redirects]]
   from = "/*"
+  from = "/catalog/*"
   to = "/index.html"
   status = 200
