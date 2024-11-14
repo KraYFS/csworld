@@ -37,7 +37,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://csworld-psi.vercel.app']
+    origin: ['http://localhost:5173', 'https://csworldfreelance.netlify.app']
 }));
 
 const SECRET_KEY = 'b0b1d0fefc5a97c6e2b846e7b3fbb4a9f8e3dc9f38a2f9e3f3bb44ff33aa2d12';
