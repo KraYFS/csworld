@@ -2,7 +2,7 @@
   publish = "/dist"
 
   [[redirects]]
-  from = "/api/*"
+  from = "/*"
   to = "https://csworldfreelance.netlify.app/:splat"
   status = 200
   force = true
