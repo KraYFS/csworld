@@ -3,6 +3,6 @@
 
   [[redirects]]
   from = "/api/*"
-  to = "https://csworldfreelance.netlify.app/api/:splat"
+  to = "https://csworldfreelance.netlify.app/:splat"
   status = 200
   force = true
