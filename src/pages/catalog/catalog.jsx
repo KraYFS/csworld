@@ -13,16 +13,16 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const Catalog = () => {
-    const [data, setData] = useState(null)
-    const { name } = useParams()
+    // const [data, setData] = useState(null)
+    // const { name } = useParams()
 
-    useEffect(() => {
-        fetch(`${__BASE_URL__}/api/${name}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setData(data);
-            });
-    }, [name])
+    // useEffect(() => {
+    //     fetch(`${__BASE_URL__}/api/${name}`)
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             setData(data);
+    //         });
+    // }, [name])
 
     const { t, i18n } = useTranslation();
 
@@ -63,8 +63,6 @@ const Catalog = () => {
                             {/* {data.map(item => {
                                 return <WeaponCategoryCard link={`catalog card/weapon models/${item._id}`} key={item._id} content={item.content} title={item.title} img={item.pictures[0]} />
                             })} */}
-                            {console.log(data)
-                            }
                         </div>
                     </section>
                 </div>
