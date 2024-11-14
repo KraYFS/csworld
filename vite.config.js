@@ -7,16 +7,6 @@ export default defineConfig(({ mode }) => {
     mode === "local-dev" ? "http://localhost:3000" : "https://csworldfreelance.netlify.app";
 
   return {
-    server: {
-      port: 3000,
-      proxy: {
-        "/api": {
-          target: "http://127.0.0.1:3000",
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, "/api"),
-        },
-      },
-    },
     plugins: [react()],
     define: {
       BaseUrl: JSON.stringify(baseURL),
