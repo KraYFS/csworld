@@ -127,6 +127,8 @@ app.post('/api/weapon%20models', upload.fields([
         console.log("appFile:", appFiles);
         console.log("torrentFiles:", torrentFiles);
 
+        res.json()
+
         res.status(200).send({ message: "Данные успешно получены" });
     } catch (error) {
         console.log(error);  // Логирование ошибок
