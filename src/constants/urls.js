@@ -1,1 +1,1 @@
-export const __BASE_URL__ = BaseUrl
+export const __BASE_URL__ = 'https://csworldfreelance.netlify.app'
