@@ -2,7 +2,7 @@
   publish = "/dist"
 
   [[redirects]]
-  from = "/*"
+  from = "'/*"
   to = "index.html/:splat"
   status = 200
   force = true
