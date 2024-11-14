@@ -1,8 +1,7 @@
 [build]
-  publish = "/dist"
+  publish = "dist"
 
-  [[redirects]]
+[[redirects]]
   from = "/*"
-  to = "index.html/:splat"
+  to = "/index.html"
   status = 200
-  force = true
