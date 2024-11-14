@@ -42,455 +42,455 @@ app.use(cors({
 
 const SECRET_KEY = 'b0b1d0fefc5a97c6e2b846e7b3fbb4a9f8e3dc9f38a2f9e3f3bb44ff33aa2d12';
 
-// app.post('/login', (req, res) => {
-//     const { username, password } = req.body;
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
 
-//     // Замените на вашу логику аутентификации
-//     if (username === 'admin' && password === 'admin') {
-//         const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' });
-//         return res.json({ token });
-//     } else {
-//         return res.status(401).json({ message: "Invalid credentials" });
-//     }
-// });
+    // Замените на вашу логику аутентификации
+    if (username === 'admin' && password === 'admin') {
+        const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' });
+        return res.json({ token });
+    } else {
+        return res.status(401).json({ message: "Invalid credentials" });
+    }
+});
 
-// // Маршрут для проверки токена
-// app.get('/admin', (req, res) => {
-//     const authHeader = req.headers.authorization;
+// Маршрут для проверки токена
+app.get('/admin', (req, res) => {
+    const authHeader = req.headers.authorization;
 
-//     if (authHeader) {
-//         const token = authHeader.split(' ')[1];
+    if (authHeader) {
+        const token = authHeader.split(' ')[1];
 
-//         jwt.verify(token, SECRET_KEY, (err, user) => {
-//             if (err) return res.sendStatus(403);
-//             res.json({ message: "Welcome to the admin panel" });
-//         });
-//     } else {
-//         res.sendStatus(401);
-//     }
-// });
-
-
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, '../uploads/'); // Папка для сохранения файлов
-//     },
-//     filename: function (req, file, cb) {
-//         // Сохраняем файл с его оригинальным именем
-//         cb(null, Date.now() + path.extname(file.originalname)); // Оригинальное имя файла с расширением
-//     }
-// });
+        jwt.verify(token, SECRET_KEY, (err, user) => {
+            if (err) return res.sendStatus(403);
+            res.json({ message: "Welcome to the admin panel" });
+        });
+    } else {
+        res.sendStatus(401);
+    }
+});
 
 
-// // Создание экземпляра multer с указанными настройками
-// const upload = multer({ storage: storage });
-
-// app.post('/api/weapon%20models', upload.fields([
-//     { name: 'files', maxCount: 10 },
-//     { name: 'torrentFile', maxCount: 1 },
-//     { name: 'appFile', maxCount: 1 }
-// ]), async (req, res) => {
-//     const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
-//     const files = req.files['files'];
-//     const torrentFiles = req.files['torrentFile'];
-//     const appFiles = req.files['appFile'];
-
-//     const filePaths = files ? files.map(file => `/uploads/${file.filename}`) : [];
-//     const torrentPaths = torrentFiles ? torrentFiles.map(file => `/${file.filename}`) : [];
-//     const appFilePaths = appFiles ? appFiles.map(file => `/${file.filename}`) : [];
-
-//     try {
-//         const newWeapon = new WeaponModel({
-//             title,
-//             content: tags.split(','),
-//             pictures: filePaths,
-//             description,
-//             systemRequirements,
-//             assemblyFeatures,
-//             titleSecondLang,
-//             descriptionSecondLang,
-//             tagsSecondLang,
-//             assemblyFeaturesSecondLang,
-//             systemRequirementsSecondLang,
-//             files: [appFilePaths, torrentPaths]
-//         });
-
-//         await newWeapon.save(); // Сохранение в базу данных
-
-//         // Логика для сохранения данных в базу или другие действия
-//         console.log("Title:", title);
-//         console.log("Description:", description);
-//         console.log("Tags:", tags);
-//         console.log("System Requirements:", systemRequirements);
-//         console.log("Assembly Features:", assemblyFeatures);
-//         console.log("Files:", files);
-//         console.log("appFile:", appFiles);
-//         console.log("torrentFiles:", torrentFiles);
-
-//         res.status(200).send({ message: "Данные успешно получены" });
-//     } catch (error) {
-//         console.log(error);  // Логирование ошибок
-//         res.status(500).send({ message: "Произошла ошибка при сохранении данных" });
-//     }
-// });
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '../uploads/'); // Папка для сохранения файлов
+    },
+    filename: function (req, file, cb) {
+        // Сохраняем файл с его оригинальным именем
+        cb(null, Date.now() + path.extname(file.originalname)); // Оригинальное имя файла с расширением
+    }
+});
 
 
-// app.post('/api/player%20models', upload.fields([
-//     { name: 'files', maxCount: 10 },
-//     { name: 'torrentFile', maxCount: 1 },
-//     { name: 'appFile', maxCount: 1 }
-// ]), async (req, res) => {
-//     const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
-//     const files = req.files['files'];
-//     const torrentFiles = req.files['torrentFile'];
-//     const appFiles = req.files['appFile'];
+// Создание экземпляра multer с указанными настройками
+const upload = multer({ storage: storage });
 
-//     const filePaths = files ? files.map(file => `/uploads/${file.filename}`) : [];
-//     const torrentPaths = torrentFiles ? torrentFiles.map(file => `/${file.filename}`) : [];
-//     const appFilePaths = appFiles ? appFiles.map(file => `/${file.filename}`) : [];
+app.post('/api/weapon%20models', upload.fields([
+    { name: 'files', maxCount: 10 },
+    { name: 'torrentFile', maxCount: 1 },
+    { name: 'appFile', maxCount: 1 }
+]), async (req, res) => {
+    const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
+    const files = req.files['files'];
+    const torrentFiles = req.files['torrentFile'];
+    const appFiles = req.files['appFile'];
 
-//     try {
-//         const newPlayer = new PlayerModel({
-//             title,
-//             content: tags.split(','),
-//             pictures: filePaths,
-//             description,
-//             systemRequirements,
-//             assemblyFeatures,
-//             titleSecondLang,
-//             descriptionSecondLang,
-//             tagsSecondLang,
-//             assemblyFeaturesSecondLang,
-//             systemRequirementsSecondLang,
-//             files: [appFilePaths, torrentPaths]
-//         });
+    const filePaths = files ? files.map(file => `/uploads/${file.filename}`) : [];
+    const torrentPaths = torrentFiles ? torrentFiles.map(file => `/${file.filename}`) : [];
+    const appFilePaths = appFiles ? appFiles.map(file => `/${file.filename}`) : [];
 
-//         await newPlayer.save(); // Сохранение в базу данных
+    try {
+        const newWeapon = new WeaponModel({
+            title,
+            content: tags.split(','),
+            pictures: filePaths,
+            description,
+            systemRequirements,
+            assemblyFeatures,
+            titleSecondLang,
+            descriptionSecondLang,
+            tagsSecondLang,
+            assemblyFeaturesSecondLang,
+            systemRequirementsSecondLang,
+            files: [appFilePaths, torrentPaths]
+        });
 
-//         // Логика для сохранения данных в базу или другие действия
-//         console.log("Title:", title);
-//         console.log("Description:", description);
-//         console.log("Tags:", tags);
-//         console.log("System Requirements:", systemRequirements);
-//         console.log("Assembly Features:", assemblyFeatures);
-//         console.log("Files:", files);
-//         console.log("appFile:", appFiles);
-//         console.log("torrentFiles:", torrentFiles);
+        await newWeapon.save(); // Сохранение в базу данных
 
-//         res.status(200).send({ message: "Данные успешно получены" });
-//     } catch (error) {
-//         console.log(error);  // Логирование ошибок
-//         res.status(500).send({ message: "Произошла ошибка при сохранении данных" });
-//     }
-// });
+        // Логика для сохранения данных в базу или другие действия
+        console.log("Title:", title);
+        console.log("Description:", description);
+        console.log("Tags:", tags);
+        console.log("System Requirements:", systemRequirements);
+        console.log("Assembly Features:", assemblyFeatures);
+        console.log("Files:", files);
+        console.log("appFile:", appFiles);
+        console.log("torrentFiles:", torrentFiles);
 
-// app.post('/api/maps', upload.fields([
-//     { name: 'files', maxCount: 10 },
-//     { name: 'torrentFile', maxCount: 1 },
-//     { name: 'appFile', maxCount: 1 }
-// ]), async (req, res) => {
-//     const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
-//     const files = req.files['files'];
-//     const torrentFiles = req.files['torrentFile'];
-//     const appFiles = req.files['appFile'];
+        res.status(200).send({ message: "Данные успешно получены" });
+    } catch (error) {
+        console.log(error);  // Логирование ошибок
+        res.status(500).send({ message: "Произошла ошибка при сохранении данных" });
+    }
+});
 
-//     const filePaths = files ? files.map(file => `/uploads/${file.filename}`) : [];
-//     const torrentPaths = torrentFiles ? torrentFiles.map(file => `/${file.filename}`) : [];
-//     const appFilePaths = appFiles ? appFiles.map(file => `/${file.filename}`) : [];
 
-//     try {
-//         const newMap = new MapsModel({
-//             title,
-//             content: tags.split(','),
-//             pictures: filePaths,
-//             description,
-//             systemRequirements,
-//             assemblyFeatures,
-//             titleSecondLang,
-//             descriptionSecondLang,
-//             tagsSecondLang,
-//             assemblyFeaturesSecondLang,
-//             systemRequirementsSecondLang,
-//             files: [appFilePaths, torrentPaths]
-//         });
+app.post('/api/player%20models', upload.fields([
+    { name: 'files', maxCount: 10 },
+    { name: 'torrentFile', maxCount: 1 },
+    { name: 'appFile', maxCount: 1 }
+]), async (req, res) => {
+    const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
+    const files = req.files['files'];
+    const torrentFiles = req.files['torrentFile'];
+    const appFiles = req.files['appFile'];
 
-//         await newMap.save(); // Сохранение в базу данных
+    const filePaths = files ? files.map(file => `/uploads/${file.filename}`) : [];
+    const torrentPaths = torrentFiles ? torrentFiles.map(file => `/${file.filename}`) : [];
+    const appFilePaths = appFiles ? appFiles.map(file => `/${file.filename}`) : [];
 
-//         // Логика для сохранения данных в базу или другие действия
-//         console.log("Title:", title);
-//         console.log("Description:", description);
-//         console.log("Tags:", tags);
-//         console.log("System Requirements:", systemRequirements);
-//         console.log("Assembly Features:", assemblyFeatures);
-//         console.log("Files:", files);
-//         console.log("appFile:", appFiles);
-//         console.log("torrentFiles:", torrentFiles);
+    try {
+        const newPlayer = new PlayerModel({
+            title,
+            content: tags.split(','),
+            pictures: filePaths,
+            description,
+            systemRequirements,
+            assemblyFeatures,
+            titleSecondLang,
+            descriptionSecondLang,
+            tagsSecondLang,
+            assemblyFeaturesSecondLang,
+            systemRequirementsSecondLang,
+            files: [appFilePaths, torrentPaths]
+        });
 
-//         res.status(200).send({ message: "Данные успешно получены" });
-//     } catch (error) {
-//         console.log(error);  // Логирование ошибок
-//         res.status(500).send({ message: "Произошла ошибка при сохранении данных" });
-//     }
-// });
+        await newPlayer.save(); // Сохранение в базу данных
 
-// app.post('/api/posts', upload.fields([
-//     { name: 'files', maxCount: 10 },
-//     { name: 'torrentFile', maxCount: 1 },
-//     { name: 'appFile', maxCount: 1 }
-// ]), async (req, res) => {
-//     const { title, description, tags, systemRequirements, postText, author, titleSecondLang, descriptionSecondLang, tagsSecondLang, authorSecondLang, postTextSecondLang } = req.body;
-//     const files = req.files['files'];
+        // Логика для сохранения данных в базу или другие действия
+        console.log("Title:", title);
+        console.log("Description:", description);
+        console.log("Tags:", tags);
+        console.log("System Requirements:", systemRequirements);
+        console.log("Assembly Features:", assemblyFeatures);
+        console.log("Files:", files);
+        console.log("appFile:", appFiles);
+        console.log("torrentFiles:", torrentFiles);
 
-//     const filePaths = files ? files.map(file => `/uploads/${file.filename}`) : [];
+        res.status(200).send({ message: "Данные успешно получены" });
+    } catch (error) {
+        console.log(error);  // Логирование ошибок
+        res.status(500).send({ message: "Произошла ошибка при сохранении данных" });
+    }
+});
 
-//     try {
-//         const newPost = new PostModel({
-//             title,
-//             content: tags.split(','),
-//             pictures: filePaths,
-//             description,
-//             systemRequirements,
-//             author,
-//             postText,
-//             titleSecondLang,
-//             descriptionSecondLang,
-//             tagsSecondLang,
-//             authorSecondLang,
-//             postTextSecondLang
-//         });
+app.post('/api/maps', upload.fields([
+    { name: 'files', maxCount: 10 },
+    { name: 'torrentFile', maxCount: 1 },
+    { name: 'appFile', maxCount: 1 }
+]), async (req, res) => {
+    const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
+    const files = req.files['files'];
+    const torrentFiles = req.files['torrentFile'];
+    const appFiles = req.files['appFile'];
 
-//         await newPost.save(); // Сохранение в базу данных
+    const filePaths = files ? files.map(file => `/uploads/${file.filename}`) : [];
+    const torrentPaths = torrentFiles ? torrentFiles.map(file => `/${file.filename}`) : [];
+    const appFilePaths = appFiles ? appFiles.map(file => `/${file.filename}`) : [];
 
-//         // Логика для сохранения данных в базу или другие действия
-//         console.log("Title:", title);
-//         console.log("Description:", description);
-//         console.log("Tags:", tags);
-//         console.log("System Requirements:", systemRequirements);
-//         console.log("Files:", files);
+    try {
+        const newMap = new MapsModel({
+            title,
+            content: tags.split(','),
+            pictures: filePaths,
+            description,
+            systemRequirements,
+            assemblyFeatures,
+            titleSecondLang,
+            descriptionSecondLang,
+            tagsSecondLang,
+            assemblyFeaturesSecondLang,
+            systemRequirementsSecondLang,
+            files: [appFilePaths, torrentPaths]
+        });
 
-//         res.status(200).send({ message: "Данные успешно получены" });
-//     } catch (error) {
-//         console.log(error);  // Логирование ошибок
-//         res.status(500).send({ message: "Произошла ошибка при сохранении данных" });
-//     }
-// });
+        await newMap.save(); // Сохранение в базу данных
 
-// app.post('/api/configs', upload.fields([
-//     { name: 'files', maxCount: 10 },
-//     { name: 'torrentFile', maxCount: 1 },
-//     { name: 'appFile', maxCount: 1 }
-// ]), async (req, res) => {
-//     const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
-//     const files = req.files['files'];
-//     const torrentFiles = req.files['torrentFile'];
-//     const appFiles = req.files['appFile'];
+        // Логика для сохранения данных в базу или другие действия
+        console.log("Title:", title);
+        console.log("Description:", description);
+        console.log("Tags:", tags);
+        console.log("System Requirements:", systemRequirements);
+        console.log("Assembly Features:", assemblyFeatures);
+        console.log("Files:", files);
+        console.log("appFile:", appFiles);
+        console.log("torrentFiles:", torrentFiles);
 
-//     const filePaths = files ? files.map(file => `/uploads/${file.filename}`) : [];
-//     const torrentPaths = torrentFiles ? torrentFiles.map(file => `/${file.filename}`) : [];
-//     const appFilePaths = appFiles ? appFiles.map(file => `/${file.filename}`) : [];
+        res.status(200).send({ message: "Данные успешно получены" });
+    } catch (error) {
+        console.log(error);  // Логирование ошибок
+        res.status(500).send({ message: "Произошла ошибка при сохранении данных" });
+    }
+});
 
-//     try {
-//         const newConfigs = new ConfigsModel({
-//             title,
-//             content: tags.split(','),
-//             pictures: filePaths,
-//             description,
-//             systemRequirements,
-//             assemblyFeatures,
-//             titleSecondLang,
-//             descriptionSecondLang,
-//             tagsSecondLang,
-//             assemblyFeaturesSecondLang,
-//             systemRequirementsSecondLang,
-//             files: [appFilePaths, torrentPaths]
-//         });
+app.post('/api/posts', upload.fields([
+    { name: 'files', maxCount: 10 },
+    { name: 'torrentFile', maxCount: 1 },
+    { name: 'appFile', maxCount: 1 }
+]), async (req, res) => {
+    const { title, description, tags, systemRequirements, postText, author, titleSecondLang, descriptionSecondLang, tagsSecondLang, authorSecondLang, postTextSecondLang } = req.body;
+    const files = req.files['files'];
 
-//         await newConfigs.save(); // Сохранение в базу данных
+    const filePaths = files ? files.map(file => `/uploads/${file.filename}`) : [];
 
-//         // Логика для сохранения данных в базу или другие действия
-//         console.log("Title:", title);
-//         console.log("Description:", description);
-//         console.log("Tags:", tags);
-//         console.log("System Requirements:", systemRequirements);
-//         console.log("Assembly Features:", assemblyFeatures);
-//         console.log("Files:", files);
-//         console.log("appFile:", appFiles);
-//         console.log("torrentFiles:", torrentFiles);
+    try {
+        const newPost = new PostModel({
+            title,
+            content: tags.split(','),
+            pictures: filePaths,
+            description,
+            systemRequirements,
+            author,
+            postText,
+            titleSecondLang,
+            descriptionSecondLang,
+            tagsSecondLang,
+            authorSecondLang,
+            postTextSecondLang
+        });
 
-//         res.status(200).send({ message: "Данные успешно получены" });
-//     } catch (error) {
-//         console.log(error);  // Логирование ошибок
-//         res.status(500).send({ message: "Произошла ошибка при сохранении данных" });
-//     }
-// });
+        await newPost.save(); // Сохранение в базу данных
 
-// app.post('/api/graffiti', upload.fields([
-//     { name: 'files', maxCount: 10 },
-//     { name: 'torrentFile', maxCount: 1 },
-//     { name: 'appFile', maxCount: 1 }
-// ]), async (req, res) => {
-//     const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
-//     const files = req.files['files'];
-//     const torrentFiles = req.files['torrentFile'];
-//     const appFiles = req.files['appFile'];
+        // Логика для сохранения данных в базу или другие действия
+        console.log("Title:", title);
+        console.log("Description:", description);
+        console.log("Tags:", tags);
+        console.log("System Requirements:", systemRequirements);
+        console.log("Files:", files);
 
-//     const filePaths = files ? files.map(file => `/uploads/${file.filename}`) : [];
-//     const torrentPaths = torrentFiles ? torrentFiles.map(file => `/${file.filename}`) : [];
-//     const appFilePaths = appFiles ? appFiles.map(file => `/${file.filename}`) : [];
+        res.status(200).send({ message: "Данные успешно получены" });
+    } catch (error) {
+        console.log(error);  // Логирование ошибок
+        res.status(500).send({ message: "Произошла ошибка при сохранении данных" });
+    }
+});
 
-//     try {
-//         const newGraffiti = new GraffitiModel({
-//             title,
-//             content: tags.split(','),
-//             pictures: filePaths,
-//             description,
-//             systemRequirements,
-//             assemblyFeatures,
-//             titleSecondLang,
-//             descriptionSecondLang,
-//             tagsSecondLang,
-//             assemblyFeaturesSecondLang,
-//             systemRequirementsSecondLang,
-//             files: [appFilePaths, torrentPaths]
-//         });
+app.post('/api/configs', upload.fields([
+    { name: 'files', maxCount: 10 },
+    { name: 'torrentFile', maxCount: 1 },
+    { name: 'appFile', maxCount: 1 }
+]), async (req, res) => {
+    const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
+    const files = req.files['files'];
+    const torrentFiles = req.files['torrentFile'];
+    const appFiles = req.files['appFile'];
 
-//         await newGraffiti.save(); // Сохранение в базу данных
+    const filePaths = files ? files.map(file => `/uploads/${file.filename}`) : [];
+    const torrentPaths = torrentFiles ? torrentFiles.map(file => `/${file.filename}`) : [];
+    const appFilePaths = appFiles ? appFiles.map(file => `/${file.filename}`) : [];
 
-//         // Логика для сохранения данных в базу или другие действия
-//         console.log("Title:", title);
-//         console.log("Description:", description);
-//         console.log("Tags:", tags);
-//         console.log("System Requirements:", systemRequirements);
-//         console.log("Assembly Features:", assemblyFeatures);
-//         console.log("Files:", files);
-//         console.log("appFile:", appFiles);
-//         console.log("torrentFiles:", torrentFiles);
+    try {
+        const newConfigs = new ConfigsModel({
+            title,
+            content: tags.split(','),
+            pictures: filePaths,
+            description,
+            systemRequirements,
+            assemblyFeatures,
+            titleSecondLang,
+            descriptionSecondLang,
+            tagsSecondLang,
+            assemblyFeaturesSecondLang,
+            systemRequirementsSecondLang,
+            files: [appFilePaths, torrentPaths]
+        });
 
-//         res.status(200).send({ message: "Данные успешно получены" });
-//     } catch (error) {
-//         console.log(error);  // Логирование ошибок
-//         res.status(500).send({ message: "Произошла ошибка при сохранении данных" });
-//     }
-// });
+        await newConfigs.save(); // Сохранение в базу данных
 
-// app.post('/api/assemblies', upload.fields([
-//     { name: 'files', maxCount: 10 },
-//     { name: 'torrentFile', maxCount: 1 },
-//     { name: 'appFile', maxCount: 1 }
-// ]), async (req, res) => {
-//     const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
-//     const files = req.files['files'];
-//     const torrentFiles = req.files['torrentFile'];
-//     const appFiles = req.files['appFile'];
+        // Логика для сохранения данных в базу или другие действия
+        console.log("Title:", title);
+        console.log("Description:", description);
+        console.log("Tags:", tags);
+        console.log("System Requirements:", systemRequirements);
+        console.log("Assembly Features:", assemblyFeatures);
+        console.log("Files:", files);
+        console.log("appFile:", appFiles);
+        console.log("torrentFiles:", torrentFiles);
 
-//     const filePaths = files ? files.map(file => `/uploads/${file.filename}`) : [];
-//     const torrentPaths = torrentFiles ? torrentFiles.map(file => `/${file.filename}`) : [];
-//     const appFilePaths = appFiles ? appFiles.map(file => `/${file.filename}`) : [];
+        res.status(200).send({ message: "Данные успешно получены" });
+    } catch (error) {
+        console.log(error);  // Логирование ошибок
+        res.status(500).send({ message: "Произошла ошибка при сохранении данных" });
+    }
+});
 
-//     try {
-//         const newAssemblies = new AssembliesModel({
-//             title,
-//             content: tags.split(','),
-//             pictures: filePaths,
-//             description,
-//             systemRequirements,
-//             assemblyFeatures,
-//             titleSecondLang,
-//             descriptionSecondLang,
-//             tagsSecondLang,
-//             assemblyFeaturesSecondLang,
-//             systemRequirementsSecondLang,
-//             files: [appFilePaths, torrentPaths]
-//         });
+app.post('/api/graffiti', upload.fields([
+    { name: 'files', maxCount: 10 },
+    { name: 'torrentFile', maxCount: 1 },
+    { name: 'appFile', maxCount: 1 }
+]), async (req, res) => {
+    const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
+    const files = req.files['files'];
+    const torrentFiles = req.files['torrentFile'];
+    const appFiles = req.files['appFile'];
 
-//         await newAssemblies.save(); // Сохранение в базу данных
+    const filePaths = files ? files.map(file => `/uploads/${file.filename}`) : [];
+    const torrentPaths = torrentFiles ? torrentFiles.map(file => `/${file.filename}`) : [];
+    const appFilePaths = appFiles ? appFiles.map(file => `/${file.filename}`) : [];
 
-//         // Логика для сохранения данных в базу или другие действия
-//         console.log("Title:", title);
-//         console.log("Description:", description);
-//         console.log("Tags:", tags);
-//         console.log("System Requirements:", systemRequirements);
-//         console.log("Assembly Features:", assemblyFeatures);
-//         console.log("Files:", files);
-//         console.log("appFile:", appFiles);
-//         console.log("torrentFiles:", torrentFiles);
+    try {
+        const newGraffiti = new GraffitiModel({
+            title,
+            content: tags.split(','),
+            pictures: filePaths,
+            description,
+            systemRequirements,
+            assemblyFeatures,
+            titleSecondLang,
+            descriptionSecondLang,
+            tagsSecondLang,
+            assemblyFeaturesSecondLang,
+            systemRequirementsSecondLang,
+            files: [appFilePaths, torrentPaths]
+        });
 
-//         res.status(200).send({ message: "Данные успешно получены" });
-//     } catch (error) {
-//         console.log(error);  // Логирование ошибок
-//         res.status(500).send({ message: "Произошла ошибка при сохранении данных" });
-//     }
-// });
+        await newGraffiti.save(); // Сохранение в базу данных
 
-// app.post('/api/sounds', upload.fields([
-//     { name: 'files', maxCount: 10 },
-//     { name: 'torrentFile', maxCount: 1 },
-//     { name: 'appFile', maxCount: 1 }
-// ]), async (req, res) => {
-//     const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
-//     const files = req.files['files'];
-//     const torrentFiles = req.files['torrentFile'];
-//     const appFiles = req.files['appFile'];
+        // Логика для сохранения данных в базу или другие действия
+        console.log("Title:", title);
+        console.log("Description:", description);
+        console.log("Tags:", tags);
+        console.log("System Requirements:", systemRequirements);
+        console.log("Assembly Features:", assemblyFeatures);
+        console.log("Files:", files);
+        console.log("appFile:", appFiles);
+        console.log("torrentFiles:", torrentFiles);
 
-//     const filePaths = files ? files.map(file => `/uploads/${file.filename}`) : [];
-//     const torrentPaths = torrentFiles ? torrentFiles.map(file => `/${file.filename}`) : [];
-//     const appFilePaths = appFiles ? appFiles.map(file => `/${file.filename}`) : [];
+        res.status(200).send({ message: "Данные успешно получены" });
+    } catch (error) {
+        console.log(error);  // Логирование ошибок
+        res.status(500).send({ message: "Произошла ошибка при сохранении данных" });
+    }
+});
 
-//     try {
-//         const newSound = new SoundsModel({
-//             title,
-//             content: tags.split(','),
-//             pictures: filePaths,
-//             description,
-//             systemRequirements,
-//             assemblyFeatures,
-//             titleSecondLang,
-//             descriptionSecondLang,
-//             tagsSecondLang,
-//             assemblyFeaturesSecondLang,
-//             systemRequirementsSecondLang,
-//             files: [appFilePaths, torrentPaths]
-//         });
+app.post('/api/assemblies', upload.fields([
+    { name: 'files', maxCount: 10 },
+    { name: 'torrentFile', maxCount: 1 },
+    { name: 'appFile', maxCount: 1 }
+]), async (req, res) => {
+    const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
+    const files = req.files['files'];
+    const torrentFiles = req.files['torrentFile'];
+    const appFiles = req.files['appFile'];
 
-//         await newSound.save(); // Сохранение в базу данных
+    const filePaths = files ? files.map(file => `/uploads/${file.filename}`) : [];
+    const torrentPaths = torrentFiles ? torrentFiles.map(file => `/${file.filename}`) : [];
+    const appFilePaths = appFiles ? appFiles.map(file => `/${file.filename}`) : [];
 
-//         // Логика для сохранения данных в базу или другие действия
-//         console.log("Title:", title);
-//         console.log("Description:", description);
-//         console.log("Tags:", tags);
-//         console.log("System Requirements:", systemRequirements);
-//         console.log("Assembly Features:", assemblyFeatures);
-//         console.log("Files:", files);
-//         console.log("appFile:", appFiles);
-//         console.log("torrentFiles:", torrentFiles);
+    try {
+        const newAssemblies = new AssembliesModel({
+            title,
+            content: tags.split(','),
+            pictures: filePaths,
+            description,
+            systemRequirements,
+            assemblyFeatures,
+            titleSecondLang,
+            descriptionSecondLang,
+            tagsSecondLang,
+            assemblyFeaturesSecondLang,
+            systemRequirementsSecondLang,
+            files: [appFilePaths, torrentPaths]
+        });
 
-//         res.status(200).send({ message: "Данные успешно получены" });
-//     } catch (error) {
-//         console.log(error);  // Логирование ошибок
-//         res.status(500).send({ message: "Произошла ошибка при сохранении данных" });
-//     }
-// });
+        await newAssemblies.save(); // Сохранение в базу данных
 
-// app.get('/api/download/:fileName', (req, res) => {
-//     const { fileName } = req.params;
-//     const filePath = path.join(__dirname, '../uploads', fileName); // Путь к файлу в папке 'uploads'
+        // Логика для сохранения данных в базу или другие действия
+        console.log("Title:", title);
+        console.log("Description:", description);
+        console.log("Tags:", tags);
+        console.log("System Requirements:", systemRequirements);
+        console.log("Assembly Features:", assemblyFeatures);
+        console.log("Files:", files);
+        console.log("appFile:", appFiles);
+        console.log("torrentFiles:", torrentFiles);
 
-//     // Проверка существования файла перед отправкой
-//     fs.access(filePath, fs.constants.F_OK, (err) => {
-//         if (err) {
-//             console.error('Файл не найден:', filePath);
-//             return res.status(404).send({ message: 'Файл не найден' });
-//         }
+        res.status(200).send({ message: "Данные успешно получены" });
+    } catch (error) {
+        console.log(error);  // Логирование ошибок
+        res.status(500).send({ message: "Произошла ошибка при сохранении данных" });
+    }
+});
 
-//         // Отправка файла клиенту
-//         res.download(filePath, fileName, (err) => {
-//             if (err) {
-//                 console.error('Ошибка при скачивании файла:', err);
-//                 res.status(500).send({ message: 'Ошибка при скачивании файла' });
-//             }
-//         });
-//     });
-// });
+app.post('/api/sounds', upload.fields([
+    { name: 'files', maxCount: 10 },
+    { name: 'torrentFile', maxCount: 1 },
+    { name: 'appFile', maxCount: 1 }
+]), async (req, res) => {
+    const { title, description, tags, systemRequirements, assemblyFeatures, titleSecondLang, descriptionSecondLang, tagsSecondLang, assemblyFeaturesSecondLang, systemRequirementsSecondLang } = req.body;
+    const files = req.files['files'];
+    const torrentFiles = req.files['torrentFile'];
+    const appFiles = req.files['appFile'];
+
+    const filePaths = files ? files.map(file => `/uploads/${file.filename}`) : [];
+    const torrentPaths = torrentFiles ? torrentFiles.map(file => `/${file.filename}`) : [];
+    const appFilePaths = appFiles ? appFiles.map(file => `/${file.filename}`) : [];
+
+    try {
+        const newSound = new SoundsModel({
+            title,
+            content: tags.split(','),
+            pictures: filePaths,
+            description,
+            systemRequirements,
+            assemblyFeatures,
+            titleSecondLang,
+            descriptionSecondLang,
+            tagsSecondLang,
+            assemblyFeaturesSecondLang,
+            systemRequirementsSecondLang,
+            files: [appFilePaths, torrentPaths]
+        });
+
+        await newSound.save(); // Сохранение в базу данных
+
+        // Логика для сохранения данных в базу или другие действия
+        console.log("Title:", title);
+        console.log("Description:", description);
+        console.log("Tags:", tags);
+        console.log("System Requirements:", systemRequirements);
+        console.log("Assembly Features:", assemblyFeatures);
+        console.log("Files:", files);
+        console.log("appFile:", appFiles);
+        console.log("torrentFiles:", torrentFiles);
+
+        res.status(200).send({ message: "Данные успешно получены" });
+    } catch (error) {
+        console.log(error);  // Логирование ошибок
+        res.status(500).send({ message: "Произошла ошибка при сохранении данных" });
+    }
+});
+
+app.get('/api/download/:fileName', (req, res) => {
+    const { fileName } = req.params;
+    const filePath = path.join(__dirname, '../uploads', fileName); // Путь к файлу в папке 'uploads'
+
+    // Проверка существования файла перед отправкой
+    fs.access(filePath, fs.constants.F_OK, (err) => {
+        if (err) {
+            console.error('Файл не найден:', filePath);
+            return res.status(404).send({ message: 'Файл не найден' });
+        }
+
+        // Отправка файла клиенту
+        res.download(filePath, fileName, (err) => {
+            if (err) {
+                console.error('Ошибка при скачивании файла:', err);
+                res.status(500).send({ message: 'Ошибка при скачивании файла' });
+            }
+        });
+    });
+});
 
 app.use('/api', postRouter);
 app.use('/api', assembliesRouter);
