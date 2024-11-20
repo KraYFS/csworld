@@ -28,6 +28,7 @@ const AdminForm = () => {
             });
     }, [navigate]);
 
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [tags, setTags] = useState([]);
@@ -62,11 +63,33 @@ const AdminForm = () => {
     const editSystemRequirementsSecondLang = (event) => setSystemRequirementsSecondLang(event.target.value);
     const editAssemblyFeaturesSecondLang = (event) => setAssemblyFeaturesSecondLang(event.target.value);
 
+    useEffect(() => {
+        return () => {
+            images.forEach((image) => URL.revokeObjectURL(image.preview));
+        };
+    }, [images]);
+
     // Обработчик для загрузки файлов
     const handleImageUpload = (event) => {
         const files = Array.from(event.target.files);
-        setImages(files);
-        setTemporaryLink(URL.createObjectURL(files[0]));
+
+        const uniqueFiles = files.filter(
+            (file) =>
+                !images.some(
+                    (img) => img.name === file.name && img.size === file.size
+                )
+        );
+
+        if (uniqueFiles.length === 0) {
+            alert("Выбранные изображения уже добавлены.");
+            return;
+        }
+
+        setImages((prevImages) => [...prevImages, ...uniqueFiles]);
+
+        if (uniqueFiles.length > 0) {
+            setTemporaryLink(URL.createObjectURL(uniqueFiles[0]));
+        }
     };
 
     const addFile = (event) => {
@@ -129,7 +152,7 @@ const AdminForm = () => {
         }
     };
 
-    console.log(titleSecondLang);
+
 
 
     return (
@@ -150,18 +173,18 @@ const AdminForm = () => {
                         : <input onChange={editAssemblyFeatures} type="text" placeholder="Особенности" value={assemblyFeatures} />
                     }
 
-                    <input onChange={editTitleSecondLang} type="text" placeholder="Название (второй язык)" value={titleSecondLang} />
-                    <input onChange={editDescriptionSecondLang} type="text" placeholder="Описание (второй язык)" value={descriptionSecondLang} />
-                    <input onChange={editTagsSecondLang} type="text" placeholder="Теги (второй язык)" value={tagsSecondLang.join(',')} />
+                    <input onChange={editTitleSecondLang} type="text" placeholder="Название (укр)" value={titleSecondLang} />
+                    <input onChange={editDescriptionSecondLang} type="text" placeholder="Описание (укр)" value={descriptionSecondLang} />
+                    <input onChange={editTagsSecondLang} type="text" placeholder="Теги (укр)" value={tagsSecondLang.join(',')} />
 
                     {name === 'posts'
-                        ? <input onChange={editSystemRequirementsSecondLang} type="text" placeholder="Автор (второй язык)" value={systemRequirementsSecondLang} />
-                        : <input onChange={editSystemRequirementsSecondLang} type="text" placeholder="Как установить (второй язык)" value={systemRequirementsSecondLang} />
+                        ? <input onChange={editSystemRequirementsSecondLang} type="text" placeholder="Автор (укр)" value={systemRequirementsSecondLang} />
+                        : <input onChange={editSystemRequirementsSecondLang} type="text" placeholder="Как установить (укр)" value={systemRequirementsSecondLang} />
                     }
 
                     {name === 'posts'
-                        ? <textarea onChange={editAssemblyFeaturesSecondLang} type="text" placeholder="Текст поста (второй язык)" value={assemblyFeaturesSecondLang} />
-                        : <input onChange={editAssemblyFeaturesSecondLang} type="text" placeholder="Особенности (второй язык)" value={assemblyFeaturesSecondLang} />
+                        ? <textarea onChange={editAssemblyFeaturesSecondLang} type="text" placeholder="Текст поста (укр)" value={assemblyFeaturesSecondLang} />
+                        : <input onChange={editAssemblyFeaturesSecondLang} type="text" placeholder="Особенности (укр)" value={assemblyFeaturesSecondLang} />
                     }
 
                     добавить картинки:
@@ -171,6 +194,10 @@ const AdminForm = () => {
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                             добавить файл:
                             <input type="file" accept="*" onChange={addFile} />
+                        </div>
+                    )}
+                    {name === 'assmblies' && (
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
                             добавить торрент файл:
                             <input type="file" accept="*" onChange={addTorrentFile} />
                         </div>
@@ -180,10 +207,10 @@ const AdminForm = () => {
                 <div className={styles.preview}>
                     {images[0] && <WeaponCategoryCard post='true' title={title} content={tags} img={temporaryLink} />}
                 </div>
-            </form>
+            </form >
 
             <button onClick={handleSubmit} className={styles.btn}>Создать</button>
-        </div>
+        </div >
     );
 }
 

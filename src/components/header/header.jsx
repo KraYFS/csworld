@@ -1,13 +1,13 @@
-import styles from './header.module.css'
-import logo from "../../assets/icons/header_logo.png"
+import styles from './header.module.css';
+import logo from "../../assets/icons/header_logo.png";
 import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import openIcon from "./openIcon.svg";
 
 const languages = [
-    { value: "ru", label: "Ru" },
     { value: "ua", label: "Ua" },
+    { value: "ru", label: "Ru" },
 ];
 
 const Header = () => {
@@ -22,13 +22,25 @@ const Header = () => {
 
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
+        localStorage.setItem('selectedLanguage', lng);
     };
 
     const handleLanguageChange = (language) => {
         setSelectedLanguage(language);
-        changeLanguage(language.value); // Call changeLanguage with the selected language value
+        changeLanguage(language.value);
         setIsOpenLanguageMenu(false);
     };
+
+    useEffect(() => {
+        const savedLanguage = localStorage.getItem('selectedLanguage');
+        if (savedLanguage) {
+            const language = languages.find(lang => lang.value === savedLanguage);
+            if (language) {
+                setSelectedLanguage(language);
+                changeLanguage(savedLanguage);
+            }
+        }
+    }, []);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -120,10 +132,6 @@ const Header = () => {
                         <Link className={styles.nav_link} to='/catalog/graffiti'>графіті</Link>
                         <Link className={styles.nav_link} to='/catalog/sounds'>звуки</Link>
                         <Link className={styles.nav_link} to='/catalog/posts'>статті</Link>
-                        <select className={styles.language_phone} onChange={(e) => changeLanguage(e.target.value)}>
-                            <option value="ua">ua</option>
-                            <option value="ru">ru</option>
-                        </select>
                     </nav>
                 </div>
             </div>

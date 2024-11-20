@@ -92,15 +92,22 @@ const CatalogCard = () => {
                                 <div className={styles.peculiarities}>
                                     {i18n.language === 'ua' ? data.tagsSecondLang.map((text) => {
                                         return (<Peculiarities text={text} />)
-                                    }): data.content.map((text) => {
+                                    }) : data.content.map((text) => {
                                         return (<Peculiarities text={text} />)
                                     })}
                                 </div>
-                                {name !== 'posts'
-                                    ? <div className={styles.btns}>
-                                        <DownloadBtn click={downloadFile} backColor='#6D86FF' text={t('downloadBtn')} />
-                                        <DownloadBtn click={downloadTorrentFile} backColor='#54AB64' text={t('downloadBtn')} />
-                                    </div> : null}
+                                <div className={styles.btns}>
+                                    {name !== 'posts'
+                                        ? <>
+                                            <DownloadBtn click={downloadFile} backColor='#6D86FF' text={t('downloadBtn')} />
+                                        </>
+                                        : null}
+                                    {name === 'assemblies' && (
+                                        <>
+                                            <DownloadBtn click={downloadTorrentFile} backColor='#54AB64' text={t('downloadBtn')} />
+                                        </>
+                                    )}
+                                </div>
                             </div>
                         </div>
                         {

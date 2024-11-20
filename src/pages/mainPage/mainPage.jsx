@@ -15,6 +15,7 @@ import Peculiarities from "../../Ui/peculiarities/peculiarities";
 import Spoiler from "../../Ui/spoiler/spoiler";
 import { __BASE_URL__ } from '../../constants/urls'
 import { useTranslation } from 'react-i18next';
+import Footer from "../../components/footer/footer";
 
 
 const MainPage = () => {
@@ -108,6 +109,7 @@ const MainPage = () => {
                         text={t('assemblyText')} />
                 </section>
             </div>
+            <Footer />
         </div>
     );
 }

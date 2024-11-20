@@ -15,6 +15,7 @@ const CatalogCardEdit = () => {
     const [authorSecondLang, setAuthorSecondLang] = useState('');
     const [postTextSecondLang, setPostTextSecondLang] = useState('');
     const [newPictures, setNewPictures] = useState([]);
+    const [deletedPictures, setDeletedPictures] = useState([]);
     const [titleSecondLang, setTitleSecondLang] = useState('');
     const [descriptionSecondLang, setDescriptionSecondLang] = useState('');
     const [tagsSecondLang, setTagsSecondLang] = useState('');
@@ -37,12 +38,12 @@ const CatalogCardEdit = () => {
                 setNewPictures(data.pictures);
                 setTitle(data.title);
                 setDescription(data.description);
-                setTags(data.content.join(',')); // Преобразуем массив в строку
+                setTags(data.content); // Преобразуем массив в строку
                 setAuthor(data.author || '');
                 setPostText(data.postText || '');
                 setTitleSecondLang(data.titleSecondLang);
                 setDescriptionSecondLang(data.descriptionSecondLang);
-                setTagsSecondLang(data.tagsSecondLang.join(','));
+                setTagsSecondLang(data.tagsSecondLang);
                 setAuthorSecondLang(data.authorSecondLang || '');
                 setPostTextSecondLang(data.postTextSecondLang || '');
             })
@@ -113,7 +114,7 @@ const CatalogCardEdit = () => {
 
     const changePostTextSecondLang = (event) => {
         setPostTextSecondLang(event.target.value);
-    };    
+    };
 
     const deleteElem = () => {
         fetch(`${__BASE_URL__}/api/${name}/${id}`, {
@@ -132,6 +133,72 @@ const CatalogCardEdit = () => {
             });
     };
 
+    const uploadImage = async (file) => {
+        const formData = new FormData();
+        formData.append('files', file);
+
+        try {
+            const response = await fetch(`${__BASE_URL__}/api/${name}/${id}`, {
+                method: 'PATCH',
+                body: formData,
+            });
+
+            if (!response.ok) throw new Error('Ошибка загрузки изображения');
+            const result = await response.json();
+            return result.url; // URL загруженного изображения
+        } catch (error) {
+            console.error('Ошибка при загрузке:', error);
+            alert('Не удалось загрузить изображение');
+            return null;
+        }
+    };
+
+    const handleImageChange = async (event) => {
+        const files = event.target.files;
+        if (!files || files.length === 0) return;
+
+        const newImages = [];
+        for (let i = 0; i < files.length; i++) {
+            const imageUrl = await uploadImage(files[i]);
+            if (imageUrl) {
+                newImages.push(imageUrl);
+            }
+        }
+
+        // Обновляем состояние с добавленными изображениями
+        setNewPictures((prev) => [...prev, ...newImages]);
+    };
+
+    const deleteImg = (index) => {
+        const imageToDelete = newPictures[index]; // Получаем URL или имя изображения
+        const updatedPictures = newPictures.filter((_, i) => i !== index); // Убираем удалённое изображение из массива
+    
+        fetch(`${__BASE_URL__}/api/${name}/${id}/deleteImage`, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ imageUrl: imageToDelete }), // Передаем URL картинки для удаления
+        })
+            .then((res) => {
+                if (res.ok) {
+                    // Добавляем удалённое изображение в массив deletedPictures
+                    setDeletedPictures((prev) => [...prev, imageToDelete]);
+                    
+                    // Обновляем массив с оставшимися изображениями
+                    setNewPictures(updatedPictures);
+                } else {
+                    res.json().then(data => {
+                        alert(data.message || 'Ошибка при удалении картинки');
+                    });
+                }
+            })
+            .catch((error) => {
+                console.error('Ошибка при удалении:', error);
+                alert('Ошибка при удалении картинки');
+            });
+    };
+    
     const saveEdit = () => {
         // Если поле пустое, оставляем начальное значение
         if (title === '') setTitle(data.title);
@@ -143,24 +210,29 @@ const CatalogCardEdit = () => {
         if (descriptionSecondLang === '') setDescriptionSecondLang(data.descriptionSecondLang);
         if (tagsSecondLang === '') setTagsSecondLang(data.tagsSecondLang.join(','));
 
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('content', tags);
+        formData.append('author', author);
+        formData.append('postText', postText);
+        formData.append('titleSecondLang', titleSecondLang);
+        formData.append('descriptionSecondLang', descriptionSecondLang);
+        formData.append('tagsSecondLang', tagsSecondLang);
+        formData.append('authorSecondLang', authorSecondLang);
+        formData.append('postTextSecondLang', postTextSecondLang);
+
+        deletedPictures.forEach(img => {
+            formData.append('picturesToDelete', img); // Добавляем каждую картинку как отдельный элемент массива
+        });
+        
+        newPictures.forEach(img => {
+            formData.append('pictures', img); // Добавляем каждую картинку как отдельный элемент массива
+        });
+
         fetch(`${__BASE_URL__}/api/${name}/${id}`, {
             method: 'PATCH',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                title,
-                description,
-                pictures: newPictures,
-                content: tags, // Преобразуем обратно в массив
-                author,
-                postText,
-                titleSecondLang,
-                descriptionSecondLang,
-                tagsSecondLang: tagsSecondLang, // Преобразуем обратно в массив
-                authorSecondLang,
-                postTextSecondLang
-            })
+            body: formData, // Отправляем все данные и файлы
         })
             .then((res) => {
                 if (!res.ok) {
@@ -176,10 +248,8 @@ const CatalogCardEdit = () => {
                 alert('Ошибка:', error);
             });
     };
-    const deleteImg = (index) => {
-        const updatedPictures = newPictures.filter((_, i) => i !== index);
-        setNewPictures(updatedPictures);
-    };
+
+
 
     if (!data) return <Loader />;
 
@@ -199,12 +269,12 @@ const CatalogCardEdit = () => {
                         <>
                             <div className={style.item}>Автор: {data.author}</div>
                             <div className={style.item}>Текст поста: {data.postText}</div>
-                            <div className={style.item}>Автор (второй язык): {data.authorSecondLang}</div>
-                            <div className={style.item}>Текст поста (второй язык): {data.postTextSecondLang}</div>
+                            <div className={style.item}>Автор (укр): {data.authorSecondLang}</div>
+                            <div className={style.item}>Текст поста (укр): {data.postTextSecondLang}</div>
                         </>
                     )}
                     <div className={style.item}>
-                        Картинки: {data.pictures.map((img, index) => (
+                        Картинки: {newPictures.map((img, index) => (
                             <div key={index}>
                                 <img style={{ width: '300px' }} src={img} alt="" />
                             </div>
@@ -234,25 +304,25 @@ const CatalogCardEdit = () => {
                                 Текст поста: <textarea className={style.item_input} value={postText} onChange={changePostText} placeholder='поменять значение "Текст поста"' />
                             </div>
                             <div className={style.item}>
-                                Автор (второй язык): <input className={style.item_input} value={authorSecondLang} onChange={changeAuthorSecondLang} type="text" placeholder='поменять значение "Автор"' />
+                                Автор (укр): <input className={style.item_input} value={authorSecondLang} onChange={changeAuthorSecondLang} type="text" placeholder='поменять значение "Автор"' />
                             </div>
                             <div className={style.item}>
                                 писать теги через запятую (пример: тег1,тег2)
                                 <br />
-                                Текст поста (второй язык): <textarea className={style.item_input} value={postTextSecondLang} onChange={changePostTextSecondLang} placeholder='поменять значение "Текст поста"' />
+                                Текст поста (укр): <textarea className={style.item_input} value={postTextSecondLang} onChange={changePostTextSecondLang} placeholder='поменять значение "Текст поста"' />
                             </div>
                         </>
                     )}
                     <div className={style.item}>
-                        Название (второй язык): <input className={style.item_input} value={titleSecondLang} onChange={changeTitleSecondLang} type="text" placeholder='поменять значение "Название второго языка"' />
+                        Название (укр): <input className={style.item_input} value={titleSecondLang} onChange={changeTitleSecondLang} type="text" placeholder='поменять значение "Название второго языка"' />
                     </div>
                     <div className={style.item}>
-                        Описание (второй язык): <input className={style.item_input} value={descriptionSecondLang} onChange={changeDescriptionSecondLang} type="text" placeholder='поменять значение "Описание второго языка"' />
+                        Описание (укр): <input className={style.item_input} value={descriptionSecondLang} onChange={changeDescriptionSecondLang} type="text" placeholder='поменять значение "Описание второго языка"' />
                     </div>
                     <div className={style.item}>
                         писать теги через запятую (пример: тег1,тег2)
                         <br />
-                        Теги (второй язык): <input className={style.item_input} value={tagsSecondLang} onChange={changeTagsSecondLang} type="text" placeholder='поменять значение "Теги второго языка"' />
+                        Теги (укр): <input className={style.item_input} value={tagsSecondLang} onChange={changeTagsSecondLang} type="text" placeholder='поменять значение "Теги второго языка"' />
                     </div>
                     <div className={style.item}>
                         Картинки:
@@ -262,6 +332,7 @@ const CatalogCardEdit = () => {
                                 <button onClick={() => deleteImg(index)} className={style.btn}>Удалить</button>
                             </div>
                         ))}
+                        <input type="file" multiple onChange={handleImageChange} />
                     </div>
                     <button onClick={saveEdit} className={style.btn}>Сохранить</button>
                 </>

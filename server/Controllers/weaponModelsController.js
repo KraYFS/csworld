@@ -1,4 +1,11 @@
 import WeaponModel from "../Schemas/WeaponModel.js"
+import { fileURLToPath } from 'url';
+import path from 'path';
+import fs from 'fs';
+
+// Определяем __dirname для ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 class weaponModelController {
     async create(req, res) {
@@ -69,13 +76,36 @@ class weaponModelController {
         try {
             const { id } = req.params;
             if (!id) {
-                return res.status(400).json({ message: 'Id не указан' })
+                return res.status(400).json({ message: 'Id не указан' });
             }
-            const weaponModel = await WeaponModel.findByIdAndDelete(id)
-            return res.json({ message: 'Assembly deleted successfully', weaponModel })
+    
+            // Найти элемент в базе данных
+            const weaponModel = await WeaponModel.findById(id);
+            if (!weaponModel) {
+                return res.status(404).json({ message: 'Элемент не найден' });
+            }
+    
+            // Удаление связанных фотографий
+            if (weaponModel.pictures && weaponModel.pictures.length > 0) {
+                for (const picture of weaponModel.pictures) {
+                    const filePath = path.join(__dirname, '../../', picture.replace(/^uploads[\/\\]?/, ''));
+                    fs.unlink(filePath, (err) => {
+                        if (err) {
+                            console.error(`Ошибка при удалении файла ${filePath}:`, err);
+                        } else {
+                            console.log(`Файл удалён: ${filePath}`);
+                        }
+                    });
+                }
+            }
+    
+            // Удалить сам элемент
+            await WeaponModel.findByIdAndDelete(id);
+    
+            return res.json({ message: 'Элемент и связанные файлы успешно удалены', weaponModel });
         } catch (e) {
-            console.error(e)
-            return res.status(500).json({ message: 'Internal Server Error', error: e.message })
+            console.error(e);
+            return res.status(500).json({ message: 'Внутренняя ошибка сервера', error: e.message });
         }
     }
 }

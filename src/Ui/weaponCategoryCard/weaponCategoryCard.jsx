@@ -18,7 +18,7 @@ const WeaponCategoryCard = (props) => {
     }
     return (
         <Link to={`/${props.link}`} className={styles.weaponCategoryCard}>
-            <img style={{ width: '335px', borderRadius: '5px' }} src={props.img} alt="" />
+            <img style={{ width: '335px', height: '190px', borderRadius: '5px' }} src={props.img} alt="" />
             <h2 className={styles.card_title}>{props.title}</h2>
             <div className={styles.filter}>
                 {props.content ? props.content.map((item) => {
