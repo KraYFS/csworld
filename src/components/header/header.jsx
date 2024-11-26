@@ -63,7 +63,7 @@ const Header = () => {
     }, []);  
 
     useEffect(() => {
-        setIsOpen((prev) => !prev);
+        setIsOpen(true);
         document.body.style.overflowY = 'auto';
         document.documentElement.style.overflowY = 'auto';
     }, [name])
