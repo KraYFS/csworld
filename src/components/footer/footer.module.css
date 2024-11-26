@@ -1,18 +1,17 @@
 footer {
     padding: 50px;
     width: 100%;
-    background-color: var(--color-dark-blue);
+    background-color: #323649f2;
 }
 
 .footer_inner {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     color: var(--color-white);
 }
 
 .footer_text {
-    max-width: 300px;
+    max-width: 800px;
 }
 
 .footer_nav_links {

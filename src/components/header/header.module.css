@@ -27,21 +27,29 @@
 .nav_links {
     display: flex;
     align-items: center;
-    max-width: 1470px;
+    max-width: 1170px;
     width: 100%;
     justify-content: space-between;
 }
 
 .nav_link {
-    padding: 11px 11px;
-    width: 100%;
-    max-width: 167px;
+    padding: 11px 7px;
+    max-width: 193px;
     text-align: center;
     font-size: 16px;
     color: #000;
     font-weight: 500;
     border-radius: 5px;
     transition: .2s all;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.nav_link img {
+  width: 30px;
+  height: 30px;
 }
 
 .nav_link:hover {
@@ -237,7 +245,7 @@
     }
   }
 
-  body {
+  body, html {
     overflow-x: hidden !important;
   }   
   

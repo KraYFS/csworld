@@ -1,9 +1,16 @@
 import styles from './header.module.css';
-import logo from "../../assets/icons/header_logo.png";
-import { Link } from 'react-router-dom';
+import logo from "../../assets/icons/header_logo.webp";
+import { Link, useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import openIcon from "./openIcon.svg";
+import uaIcon from "./ua_lang.svg";
+import config from "../../assets/icons/menu/config.svg"
+import graffiti from "../../assets/icons/menu/graffiti.svg"
+import maps from "../../assets/icons/menu/maps.png"
+import playerModel from "../../assets/icons/menu/player_models.svg"
+import post from "../../assets/icons/menu/post.svg"
+import weaponModel from "../../assets/icons/menu/weapon_models.svg"
 
 const languages = [
     { value: "ua", label: "Ua" },
@@ -15,10 +22,10 @@ const Header = () => {
     const [lastScrollY, setLastedScrollY] = useState(0);
     const [isOpen, setIsOpen] = useState(true);
     const { t, i18n } = useTranslation();
-    const ref = useRef(null);
     const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
     const [isOpenLanguageMenu, setIsOpenLanguageMenu] = useState(false);
     const selectRef = useRef(null);
+    const name = useParams()
 
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
@@ -53,7 +60,13 @@ const Header = () => {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, []);
+    }, []);  
+
+    useEffect(() => {
+        setIsOpen((prev) => !prev);
+        document.body.style.overflowY = 'auto';
+        document.documentElement.style.overflowY = 'auto';
+    }, [name])
 
     const handleScroll = () => {
         const currentScrollY = window.scrollY;
@@ -76,7 +89,8 @@ const Header = () => {
 
     const openBurgerMenu = () => {
         setIsOpen((prev) => !prev);
-        document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+        document.body.style.overflowY = isOpen ? 'hidden' : 'auto';
+        document.documentElement.style.overflowY = isOpen ? 'hidden' : 'auto';
     };
 
     return (
@@ -84,31 +98,49 @@ const Header = () => {
             <div className={styles.header_inner}>
                 <Link to='/'><img src={logo} alt="" /></Link>
                 <nav className={styles.nav_links}>
-                    <Link ref={ref} className={styles.nav_link} to={`/catalog/assemblies`}>{t('assemblies')}</Link>
-                    <Link className={styles.nav_link} to='/catalog/weapon models'>{t('weaponModel')}</Link>
-                    <Link className={styles.nav_link} to='/catalog/player models'>{t('playerModel')}</Link>
-                    <Link className={styles.nav_link} to='/catalog/maps'>{t('maps')}</Link>
-                    <Link className={styles.nav_link} to='/catalog/configs'>{t('configs')}</Link>
-                    <Link className={styles.nav_link} to='/catalog/graffiti'>{t('graffiti')}</Link>
-                    <Link className={styles.nav_link} to='/catalog/sounds'>{t('sounds')}</Link>
-                    <Link className={styles.nav_link} to='/catalog/posts'>{t('posts')}</Link>
+                    {/* <Link ref={ref} className={styles.nav_link} to={`/catalog/assemblies`}>{t('assemblies')}</Link> */}
+                    <Link className={styles.nav_link} to='/catalog/weapon models'><img src={weaponModel} alt="" />{t('weaponModel')}</Link>
+                    <Link className={styles.nav_link} to='/catalog/player models'><img src={playerModel} alt="" />{t('playerModel')}</Link>
+                    <Link className={styles.nav_link} to='/catalog/maps'><img src={maps} alt="" />{t('maps')}</Link>
+                    <Link className={styles.nav_link} to='/catalog/configs'><img src={config} alt="" />{t('configs')}</Link>
+                    <Link className={styles.nav_link} to='/catalog/graffiti'><img src={graffiti} alt="" />{t('graffiti')}</Link>
+                    {/* <Link className={styles.nav_link} to='/catalog/sounds'>{t('sounds')}</Link> */}
+                    <Link className={styles.nav_link} to='/catalog/posts'><img src={post} alt="" />{t('posts')}</Link>
                 </nav>
                 <div className={styles.custom_select} ref={selectRef}>
                     <div className={styles.selected_language} onClick={() => setIsOpenLanguageMenu((prev) => !prev)}>
-                        <span>{selectedLanguage.label}</span>
+                        {selectedLanguage.label === 'Ua' ? (
+                            <>
+                                <img src={uaIcon} alt="" />
+                                <span>{selectedLanguage.label}</span>
+                            </>
+                        ) : (
+                            <span>{selectedLanguage.label}</span>
+                        )}
                         <span className={`${styles.arrow} ${isOpenLanguageMenu ? styles.open : ""}`}>
                             <img src={openIcon} alt="" />
                         </span>
                     </div>
                     <ul className={`${styles.language_list} ${isOpenLanguageMenu ? styles.show : ""}`}>
                         {languages.map((language) => (
-                            <li
-                                key={language.value}
-                                onClick={() => handleLanguageChange(language)}
-                                className={styles.language_item}
-                            >
-                                {language.label}
-                            </li>
+                            language.label === 'Ua' ? (
+                                <li
+                                    key={language.value}
+                                    onClick={() => handleLanguageChange(language)}
+                                    className={styles.language_item}
+                                >
+                                    <img src={uaIcon} alt="" />
+                                    {language.label}
+                                </li>
+                            ) : (
+                                <li
+                                    key={language.value}
+                                    onClick={() => handleLanguageChange(language)}
+                                    className={styles.language_item}
+                                >
+                                    {language.label}
+                                </li>
+                            )
                         ))}
                     </ul>
                 </div>
@@ -124,13 +156,13 @@ const Header = () => {
                             <div className={styles.header_menu_burger_left_line_close}></div>
                             <div className={styles.header_menu_burger_right_line_close}></div>
                         </div>
-                        <Link ref={ref} className={styles.nav_link} to={`/catalog/assemblies`}>Зборки кс 1.6</Link>
+                        {/* <Link ref={ref} className={styles.nav_link} to={`/catalog/assemblies`}>Зборки кс 1.6</Link> */}
                         <Link className={styles.nav_link} to='/catalog/weapon models'>моделі зброї</Link>
                         <Link className={styles.nav_link} to='/catalog/player models'>моделі гравців</Link>
                         <Link className={styles.nav_link} to='/catalog/maps'>карти</Link>
                         <Link className={styles.nav_link} to='/catalog/configs'>конфіги</Link>
                         <Link className={styles.nav_link} to='/catalog/graffiti'>графіті</Link>
-                        <Link className={styles.nav_link} to='/catalog/sounds'>звуки</Link>
+                        {/* <Link className={styles.nav_link} to='/catalog/sounds'>звуки</Link> */}
                         <Link className={styles.nav_link} to='/catalog/posts'>статті</Link>
                     </nav>
                 </div>

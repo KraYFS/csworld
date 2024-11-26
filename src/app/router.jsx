@@ -7,11 +7,17 @@ import AdminPanelCsworldEdit from "../pages/adminPanelCsworldEdit/adminPanelCswo
 import AdminPanelCatalog from "../pages/adminPanelCatalog/adminPanelCatalog";
 import CatalogCardEdit from "../pages/CatalogCardEdit/CatalogCardEdit";
 import Login from "../pages/login/Login";
+import InformationPage from "../pages/informationPage/informationPage";
 
 const Router = createBrowserRouter([
     {
         path: '/',
         element: <MainPage />,
+        errorElement: <Page404 />
+    },
+    {
+        path: '/information page/:name',
+        element: <InformationPage />,
         errorElement: <Page404 />
     },
     {

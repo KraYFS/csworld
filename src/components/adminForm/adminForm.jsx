@@ -152,16 +152,13 @@ const AdminForm = () => {
         }
     };
 
-
-
-
     return (
         <div>
             <form className={styles.form}>
                 <div className={styles.inputs}>
                     <input onChange={editTitle} type="text" placeholder="Название" value={title} />
                     <input onChange={editDescription} type="text" placeholder="Описание" value={description} />
-                    <input onChange={editTags} type="text" placeholder="Теги" value={tags.join(',')} />
+                    <input onChange={editTags}  type="text" placeholder="Теги" value={tags.join(',')} />
 
                     {name === 'posts'
                         ? <input onChange={editSystemRequirements} type="text" placeholder="Автор" value={systemRequirements} />

@@ -31,7 +31,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const PORT = 3000;
-const DB_URL = 'mongodb+srv://csWorldDB:csWorldDB1244@cluster0.cra75.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const DB_URL = 'mongodb+srv://asla4ok:CmvZFvSq4SRPwQ@cluster0.2gvaa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+
 
 const app = express();
 app.use(express.json());

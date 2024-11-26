@@ -3,13 +3,13 @@ import icon from '../../assets/icons/spoiler_icon.svg'
 import { useState } from 'react';
 
 const Spoiler = (props) => {
-    const [isClicked, setIsClicked] = useState(false)
+    const [isClicked, setIsClicked] = useState(false)  // Спойлер по умолчанию открыт
 
     if (props.post) {
         return (
             <div className={styles.spoiler}>
                 <div className={styles.spoiler_title}>
-                    <img className={`${styles.spoiler_icon} ${styles.content_open}`} src={icon} alt="" />
+                    {props.image && <img className={`${styles.spoiler_icon} ${styles.content_open}`} src={icon} alt="" />}
                     {props.title}
                 </div>
                 <div className={`${styles.spoiler_content} ${styles.visible}`}>
@@ -32,7 +32,6 @@ const Spoiler = (props) => {
             </div>
         );
     }
-
 }
 
 export default Spoiler;

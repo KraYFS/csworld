@@ -1,20 +1,24 @@
 import React from 'react';
 import styles from './footer.module.css'
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+    const { t, i18n } = useTranslation();
+
     return (
         <footer>
             <div className={styles.footer_inner}>
                 <div className={styles.footer_text}>
-                    &#169;2022-2024 &#171;cs-world.com.ua&#187;-Все дистрибутивы Counter Strike даны на сайте для знакомства
+                   {t('footertext')}
                 </div>
                 <nav className={styles.footer_nav_links}>
-                    <a className={styles.footer_nav_link} href="">Пользовательское соглашение</a>
-                    <a className={styles.footer_nav_link} href="">Политика конфидецальности</a>
+                    <Link to='/information page/User agreement' className={styles.footer_nav_link} href="">{t('footerLinkUser')}</Link>
+                    <Link to='/information page/Privacy Policy' className={styles.footer_nav_link} href="">{t('footerLinkPrivacy')}</Link>
                 </nav>
                 <div className={styles.contact}>
                     <span className={styles.contact_title}>
-                        Обратная связь
+                        {t('footerFeedback')}
                     </span>
                     <span className=''>
                         admin@cs-world.com.ua

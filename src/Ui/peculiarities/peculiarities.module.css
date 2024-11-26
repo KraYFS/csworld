@@ -1,6 +1,12 @@
 .peculiarities {
+    display: flex;
+    gap: 5px;
     padding: 5px 8px;
-    background-color: #ccd1eb;
+    background-color: #565d7df2;
     border-radius: 5px;
-    color: #40455E;
+    color: #ffffff;
+}
+
+.peculiarities img {
+    width: 15px;
 }
