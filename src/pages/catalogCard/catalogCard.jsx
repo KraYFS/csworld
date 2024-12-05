@@ -81,7 +81,7 @@ if (!data) {
                                 className={styles.swiper}
                             >
                                 {data.pictures.map(img => {
-                                    return (<SwiperSlide><img style={{ width: '380px' }} src={img} alt="" /></SwiperSlide>)
+                                    return (<SwiperSlide><img style={{ width: '500px' }} src={img} alt="" /></SwiperSlide>)
                                 })}
                             </Swiper>
                             <Swiper

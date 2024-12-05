@@ -6,13 +6,13 @@ const Post = new mongoose.Schema({
     content: { type: Array, required: true },
     postText: { type: String, required: true },
     pictures: { type: Array, require: true },
-    description: { type: String, require: true },
-    files: {type: Array, required: true},
-    titleSecondLang: {type: String, required: true},
-    descriptionSecondLang: {type: String, required: true},
+    description: { type: String },
+    files: { type: Array, required: true },
+    titleSecondLang: { type: String, required: true },
+    descriptionSecondLang: { type: String },
     tagsSecondLang: { type: Array, require: true },
-    authorSecondLang: {type: String, required: true},
-    postTextSecondLang: {type: String, required: true}
+    authorSecondLang: { type: String, required: true },
+    postTextSecondLang: { type: String, required: true }
 })
 
 export default mongoose.model('Post', Post)

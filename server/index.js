@@ -111,7 +111,7 @@ app.post('/api/weapon%20models', upload.fields([
             assemblyFeatures,
             titleSecondLang,
             descriptionSecondLang,
-            tagsSecondLang,
+            tagsSecondLang: tagsSecondLang.split(','),
             assemblyFeaturesSecondLang,
             systemRequirementsSecondLang,
             files: [appFilePaths, torrentPaths]
@@ -230,7 +230,7 @@ app.post('/api/player%20models', upload.fields([
             assemblyFeatures,
             titleSecondLang,
             descriptionSecondLang,
-            tagsSecondLang,
+            tagsSecondLang: tagsSecondLang.split(','),
             assemblyFeaturesSecondLang,
             systemRequirementsSecondLang,
             files: [appFilePaths, torrentPaths]
@@ -357,7 +357,7 @@ app.post('/api/maps', upload.fields([
             assemblyFeatures,
             titleSecondLang,
             descriptionSecondLang,
-            tagsSecondLang,
+            tagsSecondLang: tagsSecondLang.split(','),
             assemblyFeaturesSecondLang,
             systemRequirementsSecondLang,
             files: [appFilePaths, torrentPaths]
@@ -482,7 +482,7 @@ app.post('/api/posts', upload.fields([
             postText,
             titleSecondLang,
             descriptionSecondLang,
-            tagsSecondLang,
+            tagsSecondLang: tagsSecondLang.split(','),
             authorSecondLang,
             postTextSecondLang
         });
@@ -593,7 +593,7 @@ app.post('/api/configs', upload.fields([
             assemblyFeatures,
             titleSecondLang,
             descriptionSecondLang,
-            tagsSecondLang,
+            tagsSecondLang: tagsSecondLang.split(','),
             assemblyFeaturesSecondLang,
             systemRequirementsSecondLang,
             files: [appFilePaths, torrentPaths]
@@ -718,7 +718,7 @@ app.post('/api/graffiti', upload.fields([
             assemblyFeatures,
             titleSecondLang,
             descriptionSecondLang,
-            tagsSecondLang,
+            tagsSecondLang: tagsSecondLang.split(','),
             assemblyFeaturesSecondLang,
             systemRequirementsSecondLang,
             files: [appFilePaths, torrentPaths]
@@ -843,7 +843,7 @@ app.post('/api/assemblies', upload.fields([
             assemblyFeatures,
             titleSecondLang,
             descriptionSecondLang,
-            tagsSecondLang,
+            tagsSecondLang: tagsSecondLang.split(','),
             assemblyFeaturesSecondLang,
             systemRequirementsSecondLang,
             files: [appFilePaths, torrentPaths]
@@ -968,7 +968,7 @@ app.post('/api/sounds', upload.fields([
             assemblyFeatures,
             titleSecondLang,
             descriptionSecondLang,
-            tagsSecondLang,
+            tagsSecondLang: tagsSecondLang.split(','),
             assemblyFeaturesSecondLang,
             systemRequirementsSecondLang,
             files: [appFilePaths, torrentPaths]

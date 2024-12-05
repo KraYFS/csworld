@@ -67,5 +67,11 @@
     "rekoper": "- Оперативная память 128 MB",
     "rekvideo": "- Видеокарта 32 MB+",
     "rekhdd": "- Место на жестком диск 1 GB",
-    "grirlsTag": "Женщина"
+    "grirlsTag": "Женщина",
+    "weaponModelMetaDesc": "Модели оружия",
+    "playerModelMetaDesc": "Модели игроков",
+    "mapsMetaDesc": "карты",
+    "confgisMetaDesc": "конфиги",
+    "graffitiMetaDesc": "граффити",
+    "postsMetaDesc": "Посты"
 }

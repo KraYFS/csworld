@@ -72,6 +72,7 @@ import { __BASE_URL__ } from '../../constants/urls';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Footer from '../../components/footer/footer';
+import { Helmet } from 'react-helmet-async';
 
 const Catalog = () => {
     const [data, setData] = useState([]);
@@ -104,12 +105,15 @@ const Catalog = () => {
             setIsLoading(false);
         }
     }
-    
+
     if (name === 'weapon models') {
         if (!data) return <Loader />
 
         return (
             <div>
+                <Helmet>
+                    <meta name="description" content={t('weaponModelMetaDesc')} />
+                </Helmet>
                 <Header />
                 <div className="container">
                     <section className="content">
@@ -145,7 +149,7 @@ const Catalog = () => {
                             <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('grenade', data)} textTransform='uppercase' fontWeight='500' name='Grenades' img={grenades} />
                             <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('c4', data)} textTransform='uppercase' fontWeight='500' name='c4' img={c4} />
                             <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('shield', data)} textTransform='uppercase' fontWeight='500' name='Shields' img={shield} />
-							 <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('backpack', data)} textTransform='uppercase' fontWeight='500' name='Ранець' img={backpack} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('backpack', data)} textTransform='uppercase' fontWeight='500' name='Ранець' img={backpack} />
                             <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('', data)} textTransform='uppercase' fontWeight='500' name={t('category')} />
                         </div>
                         <div className={styles.WeaponCategoryCards}>
@@ -180,7 +184,7 @@ const Catalog = () => {
                             <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('counterterrorists', data)} textTransform='uppercase' fontWeight='500' name='counterterrorists' img={counterterrorists} />
                         </div>
                         <div className={styles.WeaponCategoryCards}>
-                        {[...filteredData].reverse().map(item => (
+                            {[...filteredData].reverse().map(item => (
                                 <WeaponCategoryCard
                                     link={`catalog card/assemblies/${item._id}`}
                                     key={item._id}
@@ -201,6 +205,9 @@ const Catalog = () => {
 
         return (
             <div>
+                <Helmet>
+                    <meta name="description" content={t('playerModelMetaDesc')} />
+                </Helmet>
                 <Header />
                 <div className="container">
                     <section className="content">
@@ -209,15 +216,15 @@ const Catalog = () => {
                         <SectionTitle marginTop='40' title={t('sectionPlayerModelTitle')} />
                         <div className={styles.weapon_category}>
                             <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('counterterrorists', data)} textTransform='uppercase' fontWeight='500' name='counterterrorists' img={counterterrorists} />
-							<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('terrorists', data)} textTransform='uppercase' fontWeight='500' name='terrorists' img={terrorists} />
-							<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('packs', data)} textTransform='uppercase' fontWeight='500' name='packs' img={packs} />
-							<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('Женщина', data)} textTransform='uppercase' fontWeight='500' name={`${t('grirlsTag')}`} img={girls} />
-							<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('real', data)} textTransform='uppercase' fontWeight='500' name='real' img={real} />
-							<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('cso', data)} textTransform='uppercase' fontWeight='500' name='cso' img={cso} /> 
-							<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('anime', data)} textTransform='uppercase' fontWeight='500' name='anime' img={anime} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('terrorists', data)} textTransform='uppercase' fontWeight='500' name='terrorists' img={terrorists} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('packs', data)} textTransform='uppercase' fontWeight='500' name='packs' img={packs} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('Женщина', data)} textTransform='uppercase' fontWeight='500' name={`${t('grirlsTag')}`} img={girls} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('real', data)} textTransform='uppercase' fontWeight='500' name='real' img={real} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('cso', data)} textTransform='uppercase' fontWeight='500' name='cso' img={cso} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('anime', data)} textTransform='uppercase' fontWeight='500' name='anime' img={anime} />
                         </div>
                         <div className={styles.WeaponCategoryCards}>
-                        {[...filteredData].reverse().map(item => (
+                            {[...filteredData].reverse().map(item => (
                                 <WeaponCategoryCard
                                     link={`catalog card/player models/${item._id}`}
                                     key={item._id}
@@ -238,6 +245,9 @@ const Catalog = () => {
 
         return (
             <div>
+                <Helmet>
+                    <meta name="description" content={t('mapsMetaDesc')} />
+                </Helmet>
                 <Header />
                 <div className="container">
                     <section className="content">
@@ -245,26 +255,26 @@ const Catalog = () => {
                         <SeoText backColor={true} text={t('mapsSeoText')} />
                         <SectionTitle marginTop='40' title={t('sectionMapsTitle')} />
                         <div className={styles.weapon_category}>
-                        <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('de', data)} textTransform='uppercase' fontWeight='500' name='de' img={de} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('cs', data)} textTransform='uppercase' fontWeight='500' name='cs' img={cs} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('awpmaps', data)} textTransform='uppercase' fontWeight='500' name='awpmaps' img={awpmaps} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('aim', data)} textTransform='uppercase' fontWeight='500' name='aim' img={aim} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('fymaps', data)} textTransform='uppercase' fontWeight='500' name='fymaps' img={fymaps} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('csgomaps', data)} textTransform='uppercase' fontWeight='500' name='csgomaps' img={csgomaps} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('ggmaps', data)} textTransform='uppercase' fontWeight='500' name='ggmaps' img={ggmaps} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('deathrunmaps', data)} textTransform='uppercase' fontWeight='500' name='deathrunmaps' img={deathrunmaps} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('grenademaps', data)} textTransform='uppercase' fontWeight='500' name='grenademaps' img={grenademaps} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('hnsmaps', data)} textTransform='uppercase' fontWeight='500' name='hnsmaps' img={hnsmaps} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('jailmaps', data)} textTransform='uppercase' fontWeight='500' name='jailmaps' img={jailmaps} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('jumpingmaps', data)} textTransform='uppercase' fontWeight='500' name='jumpingmaps' img={jumpingmaps} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('knifemaps', data)} textTransform='uppercase' fontWeight='500' name='knifemaps' img={knifemaps} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('surfmaps', data)} textTransform='uppercase' fontWeight='500' name='surfmaps' img={surfmaps} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('zombiemaps', data)} textTransform='uppercase' fontWeight='500' name='zombiemaps' img={zombiemaps} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('night', data)} textTransform='uppercase' fontWeight='500' name='night' img={night} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('winter', data)} textTransform='uppercase' fontWeight='500' name='winter' img={winter} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('de', data)} textTransform='uppercase' fontWeight='500' name='de' img={de} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('cs', data)} textTransform='uppercase' fontWeight='500' name='cs' img={cs} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('awpmaps', data)} textTransform='uppercase' fontWeight='500' name='awpmaps' img={awpmaps} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('aim', data)} textTransform='uppercase' fontWeight='500' name='aim' img={aim} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('fymaps', data)} textTransform='uppercase' fontWeight='500' name='fymaps' img={fymaps} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('csgomaps', data)} textTransform='uppercase' fontWeight='500' name='csgomaps' img={csgomaps} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('ggmaps', data)} textTransform='uppercase' fontWeight='500' name='ggmaps' img={ggmaps} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('deathrunmaps', data)} textTransform='uppercase' fontWeight='500' name='deathrunmaps' img={deathrunmaps} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('grenademaps', data)} textTransform='uppercase' fontWeight='500' name='grenademaps' img={grenademaps} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('hnsmaps', data)} textTransform='uppercase' fontWeight='500' name='hnsmaps' img={hnsmaps} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('jailmaps', data)} textTransform='uppercase' fontWeight='500' name='jailmaps' img={jailmaps} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('jumpingmaps', data)} textTransform='uppercase' fontWeight='500' name='jumpingmaps' img={jumpingmaps} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('knifemaps', data)} textTransform='uppercase' fontWeight='500' name='knifemaps' img={knifemaps} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('surfmaps', data)} textTransform='uppercase' fontWeight='500' name='surfmaps' img={surfmaps} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('zombiemaps', data)} textTransform='uppercase' fontWeight='500' name='zombiemaps' img={zombiemaps} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('night', data)} textTransform='uppercase' fontWeight='500' name='night' img={night} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('winter', data)} textTransform='uppercase' fontWeight='500' name='winter' img={winter} />
                         </div>
                         <div className={styles.WeaponCategoryCards}>
-                        {[...filteredData].reverse().map(item => (
+                            {[...filteredData].reverse().map(item => (
                                 <WeaponCategoryCard
                                     link={`catalog card/maps/${item._id}`}
                                     key={item._id}
@@ -286,17 +296,20 @@ const Catalog = () => {
         return (
             <div>
                 <Header />
+                <Helmet>
+                    <meta name="description" content={t('confgisMetaDesc')} />
+                </Helmet>
                 <div className="container">
                     <section className="content">
                         <SectionTitle title={t('configsTitle')} />
                         <SeoText backColor={true} text={t('configsTitleSeoText')} />
                         <SectionTitle marginTop='40' title={t('sectionConfigsTitleTitle')} />
                         <div className={styles.weapon_category}>
-                        <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('progamers', data)} textTransform='uppercase' fontWeight='500' name='progamers' img={progamers} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('youtubers', data)} textTransform='uppercase' fontWeight='500' name='youtubers' img={youtubers} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('progamers', data)} textTransform='uppercase' fontWeight='500' name='progamers' img={progamers} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('youtubers', data)} textTransform='uppercase' fontWeight='500' name='youtubers' img={youtubers} />
                         </div>
                         <div className={styles.WeaponCategoryCards}>
-                        {[...filteredData].reverse().map(item => (
+                            {[...filteredData].reverse().map(item => (
                                 <WeaponCategoryCard
                                     link={`catalog card/configs/${item._id}`}
                                     key={item._id}
@@ -317,6 +330,9 @@ const Catalog = () => {
 
         return (
             <div>
+                <Helmet>
+                    <meta name="description" content={t('graffitiMetaDesc')} />
+                </Helmet>
                 <Header />
                 <div className="container">
                     <section className="content">
@@ -324,15 +340,15 @@ const Catalog = () => {
                         <SeoText backColor={true} text={t('graffitiTitleSeoText')} />
                         <SectionTitle marginTop='40' title={t('sectionGraffitiTitleTitle')} />
                         <div className={styles.weapon_category}>
-                        <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('animelogo', data)} textTransform='uppercase' fontWeight='500' name='animelogo' img={animelogo} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('csgologo', data)} textTransform='uppercase' fontWeight='500' name='csgologo' img={csgologo} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('cybersports', data)} textTransform='uppercase' fontWeight='500' name='cybersports' img={cybersports} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('girlslogo', data)} textTransform='uppercase' fontWeight='500' name='girlslogo' img={girlslogo} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('monochrome', data)} textTransform='uppercase' fontWeight='500' name='monochrome' img={monochrome} />
-						<WeaponCategoryElem fontSize='18' click={() => findCategoryItem('textlogo', data)} textTransform='uppercase' fontWeight='500' name='textlogo' img={textlogo} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('animelogo', data)} textTransform='uppercase' fontWeight='500' name='animelogo' img={animelogo} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('csgologo', data)} textTransform='uppercase' fontWeight='500' name='csgologo' img={csgologo} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('cybersports', data)} textTransform='uppercase' fontWeight='500' name='cybersports' img={cybersports} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('girlslogo', data)} textTransform='uppercase' fontWeight='500' name='girlslogo' img={girlslogo} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('monochrome', data)} textTransform='uppercase' fontWeight='500' name='monochrome' img={monochrome} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('textlogo', data)} textTransform='uppercase' fontWeight='500' name='textlogo' img={textlogo} />
                         </div>
                         <div className={styles.WeaponCategoryCards}>
-                        {[...filteredData].reverse().map(item => (
+                            {[...filteredData].reverse().map(item => (
                                 <WeaponCategoryCard
                                     link={`catalog card/graffiti/${item._id}`}
                                     key={item._id}
@@ -353,6 +369,9 @@ const Catalog = () => {
 
         return (
             <div>
+                <Helmet>
+                    <meta name="description" content={t('postsMetaDesc')} />
+                </Helmet>
                 <Header />
                 <div className="container">
                     <section className="content">
@@ -382,7 +401,7 @@ const Catalog = () => {
                         <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} /> */}
                         </div>
                         <div className={styles.WeaponCategoryCards}>
-                        {[...filteredData].reverse().map(item => (
+                            {[...filteredData].reverse().map(item => (
                                 <WeaponCategoryCard
                                     link={`catalog card/posts/${item._id}`}
                                     key={item._id}
@@ -410,7 +429,7 @@ const Catalog = () => {
                         <SeoText backColor={true} text={t('soundsTitleSeoText')} />
                         <SectionTitle marginTop='40' title={t('sectionSoundsTitleTitle')} />
                         <div className={styles.weapon_category}>
-                        <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('girl', data)} textTransform='uppercase' fontWeight='500' name='girl' img={girls} />
+                            <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('girl', data)} textTransform='uppercase' fontWeight='500' name='girl' img={girls} />
                             {/* <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
                         <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
                         <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
@@ -433,7 +452,7 @@ const Catalog = () => {
                         <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} /> */}
                         </div>
                         <div className={styles.WeaponCategoryCards}>
-                        {[...filteredData].reverse().map(item => (
+                            {[...filteredData].reverse().map(item => (
                                 <WeaponCategoryCard
                                     link={`catalog card/sounds/${item._id}`}
                                     key={item._id}

@@ -28,15 +28,85 @@ const AdminForm = () => {
             });
     }, [navigate]);
 
-
+    const weaponModelTags = [
+        'awp',
+        'ak-47',
+        'm4a1',
+        'glock',
+        'galil',
+        'famas',
+        'p228',
+        'knife',
+        'usp',
+        'dual berettas',
+        'five-seven',
+        'desert-eagle',
+        'beneli',
+        'xm1014',
+        'mac-10',
+        'tmp',
+        'mp5',
+        'ump-45',
+        'p90',
+        'aug',
+        'sg-552',
+        'scout',
+        'sg-550',
+        'g3sg1',
+        'm249',
+        'grenade',
+        'c4',
+        'shield',
+        'backpack']
+    const playerModelTags = [
+        'counterterrorists',
+        'terrorists',
+        'packs',
+        'girl',
+        'real',
+        'cso',
+        'anime'
+    ]
+    const mapsTags = [
+        'de',
+        'cs',
+        'awpmaps',
+        'aim',
+        'fymaps',
+        'csgomaps',
+        'ggmaps',
+        'eathrunmaps',
+        'grenademaps',
+        'hnmaps',
+        'jailmaps',
+        'jumpingmaps',
+        'knifemaps',
+        'surfmaps',
+        'zombiemaps',
+        'night',
+        'winter'
+    ]
+    const configsTags = [
+        'progamers',
+        'youtubers'
+    ]
+    const graffitiTags = [
+        'animelogo',
+        'csgologo',
+        'cybersports',
+        'girlslogo',
+        'monochrome',
+        'textlogo'
+    ]
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [tags, setTags] = useState([]);
     const [systemRequirements, setSystemRequirements] = useState('');
-    const [assemblyFeatures, setAssemblyFeatures] = useState('');
+    const [assemblyFeatures, setAssemblyFeatures] = useState('.');
     const [images, setImages] = useState([]);
     const [temporaryLink, setTemporaryLink] = useState('');
     const [file, setFile] = useState(null);
+    const [selectedTag, setSelectedTag] = useState('');
     const [torrentFile, setTorrentFile] = useState(null);
     const [uploadedImagePaths, setUploadedImagePaths] = useState([]);
 
@@ -45,7 +115,7 @@ const AdminForm = () => {
     const [descriptionSecondLang, setDescriptionSecondLang] = useState('');
     const [tagsSecondLang, setTagsSecondLang] = useState([]);
     const [systemRequirementsSecondLang, setSystemRequirementsSecondLang] = useState('');
-    const [assemblyFeaturesSecondLang, setAssemblyFeaturesSecondLang] = useState('');
+    const [assemblyFeaturesSecondLang, setAssemblyFeaturesSecondLang] = useState('.');
 
     const { name } = useParams();
 
@@ -102,6 +172,19 @@ const AdminForm = () => {
         setTorrentFile(files[0]);
     };
 
+    const handleSelectTag = (event) => {
+        const newTag = event.target.value;
+        setSelectedTag(newTag);
+
+        if (!tags.includes(newTag)) {
+            setTags((prevTags) => [...prevTags, newTag]); // Добавляем новый тег
+        }
+
+        if (!tagsSecondLang.includes(newTag)) {
+            setTagsSecondLang((prevTags) => [...prevTags, newTag]); // Аналогично для второго языка
+        }
+    };
+
     // Обработчик отправки формы
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -113,7 +196,7 @@ const AdminForm = () => {
         formData.append("tags", tags);
         formData.append("titleSecondLang", titleSecondLang || ""); // передаем пустую строку, если пусто
         formData.append("descriptionSecondLang", descriptionSecondLang || ""); // передаем пустую строку, если пусто
-        formData.append("tagsSecondLang", tagsSecondLang || []); // передаем пустой массив, если пусто
+        formData.append("tagsSecondLang", tagsSecondLang); // передаем пустой массив, если пусто
         formData.append("author", systemRequirements);
         formData.append("postText", assemblyFeatures);
         formData.append("authorSecondLang", systemRequirementsSecondLang || ""); // аналогично
@@ -152,13 +235,52 @@ const AdminForm = () => {
         }
     };
 
+    useEffect(() => {
+        if (name === 'player models') {
+            setSystemRequirements('загрузить и распаковать архив%$20- переместить файлы в папку игры /cstrike/models/player%$20- нажать заменить файл, готово, можете наслаждаться моделями')
+            setSystemRequirementsSecondLang('завантажити і розпакувати архів%$20- перемістити файли в папку гри /cstrike/models/player%$20- натиснути замінити файл, готово, можете насолоджуватися моделями')
+        } else if (name === 'weapon models') {
+            setSystemRequirements('загрузить и распаковать архив%$20- переместить файлы в папку игры /cstrike/models%$20- нажать заменить файл, готово, можете наслаждаться моделями')
+            setSystemRequirementsSecondLang('завантажити і розпакувати архів%$20- перемістити файли в папку гри /cstrike/models%$20- натиснути замінити файл, готово, можете насолоджуватися моделями')
+        } else if (name === 'maps') {
+            setSystemRequirements('загрузить и распаковать архив%$20- переместить файлы в папку игры /cstrike и разместить согласно иерархии архива')
+            setSystemRequirementsSecondLang('завантажити і розпакувати архів%$20- перемістити файли в папку гри /cstrike і розмістити згідно з ієрархією архіву')
+        } else if (name === 'graffiti') {
+            setSystemRequirements('скачать и распаковать архив%$20- переместить файлы в папку игры /cstrike%$20- нажать заменить файл, готово')
+            setSystemRequirementsSecondLang('завантажити і розпакувати архів%$20- перемістити файли  в папку гри /cstrike%$20- натиснути замінити файл, готово')
+        }
+    }, [name])
+
     return (
         <div>
             <form className={styles.form}>
                 <div className={styles.inputs}>
+                    <select value={selectedTag} onChange={handleSelectTag}>
+                        {name === 'weapon models' && weaponModelTags.map(tagName => {
+                            return <>
+                                <option value={tagName}>{tagName}</option>
+                            </>
+                        }) || name === 'player models' && playerModelTags.map(tagName => {
+                            return <>
+                                <option value={tagName}>{tagName}</option>
+                            </>
+                        }) || name === 'maps' && mapsTags.map(tagName => {
+                            return <>
+                                <option value={tagName}>{tagName}</option>
+                            </>
+                        }) || name === 'configs' && configsTags.map(tagName => {
+                            return <>
+                                <option value={tagName}>{tagName}</option>
+                            </>
+                        }) || name === 'graffiti' && graffitiTags.map(tagName => {
+                            return <>
+                                <option value={tagName}>{tagName}</option>
+                            </>
+                        })}
+                    </select>
                     <input onChange={editTitle} type="text" placeholder="Название" value={title} />
                     <input onChange={editDescription} type="text" placeholder="Описание" value={description} />
-                    <input onChange={editTags}  type="text" placeholder="Теги" value={tags.join(',')} />
+                    <input onChange={editTags} type="text" placeholder="Теги" value={tags.join(',')} />
 
                     {name === 'posts'
                         ? <input onChange={editSystemRequirements} type="text" placeholder="Автор" value={systemRequirements} />
