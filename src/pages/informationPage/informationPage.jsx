@@ -1,3 +1,4 @@
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Footer from "../../components/footer/footer";
 import Header from "../../components/header/header";
@@ -9,6 +10,15 @@ const InformationPage = () => {
     const { name } = useParams()
     const { t, i18n } = useTranslation();
 
+    const checkParagraph = (text) => {
+        return text.split('%$20').map((paragraph, index) => {
+            return <React.Fragment key={index}>
+                {paragraph}
+                <br />
+            </React.Fragment>
+        })
+    }
+
     if (name === 'User agreement') {
         return (
             <div>
@@ -16,7 +26,7 @@ const InformationPage = () => {
                 <div className="container">
                     <section className="content">
                         <SectionTitle title={t('userAgreementTitle')} />
-                        <Spoiler post text={t('userAgreementText')} title=' .' />
+                        <Spoiler post text={checkParagraph(t('userAgreementText'))} title=' .' />
                     </section>
                 </div>
                 <Footer />
@@ -29,7 +39,7 @@ const InformationPage = () => {
                 <div className="container">
                     <section className="content">
                         <SectionTitle title={t('PrivacyTitle')} />
-                        <Spoiler post text={t('PrivacyText')} title=' .' />
+                        <Spoiler post text={checkParagraph(t('PrivacyText'))} title=' .' />
                     </section>
                 </div>
                 <Footer />
