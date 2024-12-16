@@ -1,5 +1,6 @@
 // import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
+import React from 'react';
 import SectionTitle from '../../Ui/SectionTitle/sectionTitle';
 import SeoText from '../../Ui/seoText/seoText';
 import WeaponCategoryElem from '../../Ui/weaponCategoryElem/weaponCategoryElem';
@@ -106,6 +107,15 @@ const Catalog = () => {
         }
     }
 
+    const checkParagraph = (text) => {
+        return text.split('%$20').map((paragraph, index) => {
+            return <React.Fragment key={index}>
+                {paragraph}
+                <br />
+            </React.Fragment>
+        })
+    }
+
     if (name === 'weapon models') {
         if (!data) return <Loader />
 
@@ -118,7 +128,7 @@ const Catalog = () => {
                 <div className="container">
                     <section className="content">
                         <SectionTitle title={t('weaponModelTitle')} />
-                        <SeoText backColor={true} text={t('weaponModelSeoText')} />
+                        <SeoText backColor={true} text={checkParagraph(t('weaponModelSeoText'))} />
                         <SectionTitle marginTop='40' title={t('sectionTitle')} />
                         <div className={styles.weapon_category}>
                             <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('awp', data)} textTransform='uppercase' fontWeight='500' name='awp' img={awp} />
@@ -178,7 +188,7 @@ const Catalog = () => {
                 <div className="container">
                     <section className="content">
                         <SectionTitle title={t('assembliesTitle')} />
-                        <SeoText backColor={true} text={t('assembliesSeoText')} />
+                        <SeoText backColor={true} text={checkParagraph(t('assembliesSeoText'))} />
                         <SectionTitle marginTop='40' title={t('sectionAssembliesTitle')} />
                         <div className={styles.weapon_category}>
                             <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('counterterrorists', data)} textTransform='uppercase' fontWeight='500' name='counterterrorists' img={counterterrorists} />
@@ -212,7 +222,7 @@ const Catalog = () => {
                 <div className="container">
                     <section className="content">
                         <SectionTitle title={t('playerModelTitle')} />
-                        <SeoText backColor={true} text={t('playerModelSeoText')} />
+                        <SeoText backColor={true} text={checkParagraph(t('playerModelSeoText'))} />
                         <SectionTitle marginTop='40' title={t('sectionPlayerModelTitle')} />
                         <div className={styles.weapon_category}>
                             <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('counterterrorists', data)} textTransform='uppercase' fontWeight='500' name='counterterrorists' img={counterterrorists} />
@@ -252,7 +262,7 @@ const Catalog = () => {
                 <div className="container">
                     <section className="content">
                         <SectionTitle title={t('mapsTitle')} />
-                        <SeoText backColor={true} text={t('mapsSeoText')} />
+                        <SeoText backColor={true} text={checkParagraph(t('mapsSeoText'))} />
                         <SectionTitle marginTop='40' title={t('sectionMapsTitle')} />
                         <div className={styles.weapon_category}>
                             <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('de', data)} textTransform='uppercase' fontWeight='500' name='de' img={de} />
@@ -302,7 +312,7 @@ const Catalog = () => {
                 <div className="container">
                     <section className="content">
                         <SectionTitle title={t('configsTitle')} />
-                        <SeoText backColor={true} text={t('configsTitleSeoText')} />
+                        <SeoText backColor={true} text={checkParagraph(t('configsTitleSeoText'))} />
                         <SectionTitle marginTop='40' title={t('sectionConfigsTitleTitle')} />
                         <div className={styles.weapon_category}>
                             <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('progamers', data)} textTransform='uppercase' fontWeight='500' name='progamers' img={progamers} />
@@ -337,7 +347,7 @@ const Catalog = () => {
                 <div className="container">
                     <section className="content">
                         <SectionTitle title={t('graffitiTitle')} />
-                        <SeoText backColor={true} text={t('graffitiTitleSeoText')} />
+                        <SeoText backColor={true} text={checkParagraph(t('graffitiTitleSeoText'))} />
                         <SectionTitle marginTop='40' title={t('sectionGraffitiTitleTitle')} />
                         <div className={styles.weapon_category}>
                             <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('animelogo', data)} textTransform='uppercase' fontWeight='500' name='animelogo' img={animelogo} />
@@ -376,7 +386,7 @@ const Catalog = () => {
                 <div className="container">
                     <section className="content">
                         <SectionTitle title={t('postTitle')} />
-                        <SeoText backColor={true} text={t('postTitleSeoText')} />
+                        <SeoText backColor={true} text={checkParagraph(t('postTitleSeoText'))} />
                         <SectionTitle marginTop='40' title={t('sectionPostTitleTitle')} />
                         <div className={styles.weapon_category}>
                             {/* <WeaponCategoryElem fontSize='36' textTransform='uppercase' fontWeight='500' name='awp' img={img} />
@@ -426,7 +436,7 @@ const Catalog = () => {
                 <div className="container">
                     <section className="content">
                         <SectionTitle title={t('soundsTitle')} />
-                        <SeoText backColor={true} text={t('soundsTitleSeoText')} />
+                        <SeoText backColor={true} text={checkParagraph(t('soundsTitleSeoText'))} />
                         <SectionTitle marginTop='40' title={t('sectionSoundsTitleTitle')} />
                         <div className={styles.weapon_category}>
                             <WeaponCategoryElem fontSize='18' click={() => findCategoryItem('girl', data)} textTransform='uppercase' fontWeight='500' name='girl' img={girls} />
